@@ -1,13 +1,38 @@
 /*
-  Theme Name: DevFolio
-  Theme URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
-  Author: BootstrapMade.com
-  License: https://bootstrapmade.com/license/
+  Utpal Barman's Info
+  URL: https://utpal-barman.github.io
+  Author: Utpal Barman
 */
 
-/*======================================
-//--//-->   STYLES GENERALES
-======================================*/
+/* themme and color palate */
+
+.theme-primary-bg-color {
+  background-color: #0000FF;
+}
+
+.theme-primary-color {
+  color: #0000FF;
+}
+
+.theme-seconday-bg-color {
+  background-color: red;
+}
+
+.theme-seconday-color {
+  color: red;
+}
+
+
+/* global styling */
+
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.u-button-text {
+  font-family: 'Noto Sans', sans-serif;
+}
 
 body {
   background-color: #f5f5f5;
@@ -23,6 +48,10 @@ h6 {
   color: #1e1e1e;
 }
 
+h2 {
+  font-weight: 600;
+}
+
 a {
   color: #1e1e1e;
   transition: all 0.5s ease-in-out;
@@ -32,6 +61,54 @@ a:hover {
   color: #0078ff;
   text-decoration: none;
   transition: all 0.5s ease-in-out;
+}
+
+.u-button {
+  background-image: linear-gradient(45deg, #0000FF, #3f336f);
+  border-radius: 10px;
+  text-transform: uppercase;
+  border: 0;
+  height: 48px;
+  padding: 0 30px;
+  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+}
+
+.u-button-text, .u-button-text:hover {
+  color: white !important;
+}
+
+.u-center {
+  display: block;
+  margin: 0 auto;
+}
+
+.u-center-text {
+  text-align: center;
+}
+
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+
+.label-info {
+  background-color: #5bc0de;
+}
+
+
+/* Education */
+.u-institute-logo {
+  width: 70px;
+  border-radius: 50%;
+  background-color: white;
 }
 
 .p-r {
@@ -253,8 +330,8 @@ a:hover {
 /*------/ Ico Circle /------*/
 
 .ico-circle {
-  height: 100px;
-  width: 100px;
+  height: 300px;
+  width: 300px;
   font-size: 2rem;
   border-radius: 50%;
   line-height: 1.55;
@@ -377,7 +454,6 @@ a:hover {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -389,7 +465,6 @@ a:hover {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -698,6 +773,11 @@ a:hover {
 .skill-mf .progress .progress-bar {
   height: 0.7rem;
   background-color: #0078ff;
+}
+
+.progress {
+  border-radius: 30px;
+  margin-bottom: 25px;
 }
 
 /*======================================
@@ -1188,11 +1268,9 @@ footer .credits a {
     margin-top: 3rem;
     padding-left: 0rem;
   }
-
   .card-blog {
     margin-bottom: 3rem;
   }
-
   .contact-mf .box-pl2 {
     margin-top: 3rem;
     padding-left: 0rem;
@@ -1203,47 +1281,49 @@ footer .credits a {
   .box-shadow-full {
     padding: 3rem;
   }
-
   .navbar-b.navbar-trans .nav-item,
   .navbar-b.navbar-reduce .nav-item {
     padding-left: 10px;
   }
-
   .navbar-b.navbar-trans .nav-link:before,
   .navbar-b.navbar-reduce .nav-link:before {
     margin-left: 18px;
   }
-
   .intro .intro-title {
     font-size: 4.5rem;
   }
-
   .intro .intro-subtitle {
     font-size: 2.5rem;
   }
-
   .intro-single .intro-title {
     font-size: 3.5rem;
   }
-
   .testimonial-box .description {
     padding: 0 5rem;
   }
-
   .post-box,
   .form-comments,
   .box-comments,
   .widget-sidebar {
     padding: 3rem;
   }
-
   .blog-wrapper .article-title {
     font-size: 1.9rem;
   }
-
   .box-comments .list-comments .comment-author {
     font-size: 1.5rem;
   }
+}
+
+span.material-icons {
+  padding: 8px;
+  position: relative;
+  top: 8px;
+  border-radius: 50%;
+  background-color:   blue;
+  color: white;
+  margin-right: 16px;
+  margin-bottom: 10px;
 }
 
 @media (min-width: 992px) {
@@ -1268,4 +1348,32 @@ footer .credits a {
   .back-to-top {
     bottom: 15px;
   }
+}
+
+
+/* Card Box */
+
+.u-card {
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
+  padding: 30px;
+  margin: 30px 5px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+
+/* Company Logo */
+img.u-company-logo {
+  padding-bottom: 8px;
+  margin: 8px;
+}
+
+/* Experience Card */
+.u-company-detail {
+  padding: 8px;
+}
+.u-company {
+  background-color: #eee;
+  padding: 8px;
+  border-radius: 30px;
 }
