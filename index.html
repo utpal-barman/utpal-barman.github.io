@@ -11,7 +11,7 @@
         name="description">
 
     <!-- Favicons -->
-    <link href="img/favicon.png" rel="icon">
+    <link href="img/favicon.ico" rel="icon">
     <link href="img/favicon-large.png" rel="apple-touch-icon">
 
     <!-- Bootstrap CSS File -->
@@ -32,8 +32,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <script
-        type="text/javascript">window.$crisp = []; window.CRISP_WEBSITE_ID = "56e2b302-ff6c-4a69-b35a-cb269a39449a"; (function () { d = document; s = d.createElement("script"); s.src = "https://client.crisp.chat/l.js"; s.async = 1; d.getElementsByTagName("head")[0].appendChild(s); })();</script>
+    <!-- google font for nav title -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!-- crips chat -->
+    <script type="text/javascript">
+        window.$crisp = []; window.CRISP_WEBSITE_ID = "56e2b302-ff6c-4a69-b35a-cb269a39449a"; (function () { d = document; s = d.createElement("script"); s.src = "https://client.crisp.chat/l.js"; s.async = 1; d.getElementsByTagName("head")[0].appendChild(s); })();
+    </script>
 
 </head>
 
@@ -43,18 +47,25 @@
 <body id="u-body">
 
     <!--Nav Start-->
-    <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
-
-        <a class="navbar-brand js-scroll" href="#u-body">Utpal Barman</a>
-        <span class="material-icons u-show-on-mobile-only">
-            call
-        </span>
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-            aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+    <nav class="navbar navbar-b navbar-trans navbar-expand-lg fixed-top" id="mainNav">
+        <div class="u-align-center">
+            <a class="navbar-brand js-scroll" href="#u-body">Utpal
+                Barman
+            </a>
+        </div>
+        <div>
+            <a href="tel:+8801731508492">
+                <span class="material-icons u-show-on-mobile-only">
+                    call
+                </span>
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+                aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation" style="top: 7px;">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
 
         <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
             <ul class="navbar-nav">
@@ -79,9 +90,11 @@
 
 
         </div>
-        <span class="material-icons u-hide-on-mobile u-nav-call-icon">
-            call
-        </span>
+        <a href="tel:+8801731508492" data-toggle="tooltip" title="(+88) 01731 508 492">
+            <span class="material-icons u-hide-on-mobile u-nav-call-icon">
+                call
+            </span>
+        </a>
 
     </nav>
     <!--Nav End-->
@@ -161,10 +174,9 @@
                             <p>
                                 <div style="display: -webkit-inline-box;">
                                     <span class="material-icons">home</span>
-                                    <p class="u-detail-address">
-                                        Level - 2, Flat - 3B, House - 368/3, Pirerbag Road (Oli Miar
-                                        Tek), West Shewrapara, Mirpur, Dhaka - 1216
-                                    </p>
+                                    <span>
+                                        West Shewrapara, Mirpur, Dhaka - 1216
+                                    </span>
                                 </div>
                             </p>
                         </p>
@@ -188,7 +200,7 @@
                         <h2>Experience</h2>
                         <hr>
                         <div class="u-rounded-gray-bg">
-                            <img class="u-thumb-img"
+                            <img class="u-thumb-img u-circle-border"
                                 src="https://www.heavytask.com/wp-content/uploads/2019/02/heavytask-logo.png" />
                             <a href="https://heavytask.com">HeavyTask LLC</a>
                         </div>
@@ -388,25 +400,32 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="work-box">
-                        <a href="img/work-1.jpg" data-lightbox="gallery-mf">
+                        <a href="https://user-images.githubusercontent.com/16848599/70713405-270bfa00-1d10-11ea-82a3-b004ad2ba1c6.JPEG"
+                            data-lightbox="gallery-mf">
                             <div class="work-img">
-                                <img src="img/work-1.jpg" alt="" class="img-fluid">
+                                <img src="https://user-images.githubusercontent.com/16848599/70713405-270bfa00-1d10-11ea-82a3-b004ad2ba1c6.JPEG"
+                                    alt="" class="img-fluid">
                             </div>
                             <div class="work-content">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-12">
                                         <span class="w-title">UShop</span>
                                         <span class="label label-info">Flutter</span>
                                         <hr>
-                                        <div class="w-more"><span class="w-date">An
-                                                E-Commerce App</span>
+                                        <div class="w-more">
+                                            <span class="w-date">An
+                                                E-Commerce App with Cart, Order
+                                            </span>
+
                                         </div>
+                                        <button class="u-button">
+                                            <a target="_blank" class="u-button-text" target="_blank"
+                                                href="https://github.com/utpal-barman/ushop">
+                                                Project Details
+                                            </a>
+                                        </button>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="w-like">
-                                            <span class="ion-ios-plus-outline"></span>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </a>
@@ -414,28 +433,31 @@
                 </div>
                 <div class="col-md-4">
                     <div class="work-box">
-                        <a href="img/work-2.jpg" data-lightbox="gallery-mf">
+                        <a href="https://user-images.githubusercontent.com/16848599/71556155-eaa20300-2a5e-11ea-9557-a7751450889b.JPEG"
+                            data-lightbox="gallery-mf">
                             <div class="work-img">
-                                <img src="img/work-2.jpg" alt="" class="img-fluid">
+                                <img src="https://user-images.githubusercontent.com/16848599/71556155-eaa20300-2a5e-11ea-9557-a7751450889b.JPEG"
+                                    alt="" class="img-fluid">
                             </div>
                             <div class="work-content">
                                 <div class="row">
-                                    <div class="col-sm-8">
-                                        <span class="w-title">UShop</span>
+                                    <div class="col-sm-12">
+                                        <span class="w-title">PhotoMe</span>
                                         <span class="label label-info">Flutter</span>
                                         <hr>
                                         <div class="w-more">
                                             <span class="w-date">
-                                                An
-                                                E-Commerce App
+                                                A Social Network App like instagram
                                             </span>
                                         </div>
+                                        <button class="u-button">
+                                            <a target="_blank" class="u-button-text" target="_blank"
+                                                href="https://github.com/utpal-barman/ushop">
+                                                Project Details
+                                            </a>
+                                        </button>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="w-like">
-                                            <span class="ion-ios-plus-outline"></span>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </a>
@@ -449,19 +471,24 @@
                             </div>
                             <div class="work-content">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-12">
                                         <span class="w-title">UShop</span>
                                         <span class="label label-info">Flutter</span>
                                         <hr>
-                                        <div class="w-more"><span class="w-date">An
-                                                E-Commerce App</span>
+                                        <div class="w-more">
+                                            <span class="w-date">An
+                                                E-Commerce App with Cart, Order
+                                            </span>
+
                                         </div>
+                                        <button class="u-button">
+                                            <a target="_blank" class="u-button-text" target="_blank"
+                                                href="https://github.com/utpal-barman/ushop">
+                                                Project Details
+                                            </a>
+                                        </button>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="w-like">
-                                            <span class="ion-ios-plus-outline"></span>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </a>
@@ -475,19 +502,24 @@
                             </div>
                             <div class="work-content">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-12">
                                         <span class="w-title">UShop</span>
                                         <span class="label label-info">Flutter</span>
                                         <hr>
-                                        <div class="w-more"> <span class="w-date">An
-                                                E-Commerce App</span>
+                                        <div class="w-more">
+                                            <span class="w-date">An
+                                                E-Commerce App with Cart, Order
+                                            </span>
+
                                         </div>
+                                        <button class="u-button">
+                                            <a target="_blank" class="u-button-text" target="_blank"
+                                                href="https://github.com/utpal-barman/ushop">
+                                                Project Details
+                                            </a>
+                                        </button>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="w-like">
-                                            <span class="ion-ios-plus-outline"></span>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </a>
@@ -501,19 +533,24 @@
                             </div>
                             <div class="work-content">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-12">
                                         <span class="w-title">UShop</span>
                                         <span class="label label-info">Flutter</span>
                                         <hr>
-                                        <div class="w-more"> <span class="w-date">An
-                                                E-Commerce App</span>
+                                        <div class="w-more">
+                                            <span class="w-date">An
+                                                E-Commerce App with Cart, Order
+                                            </span>
+
                                         </div>
+                                        <button class="u-button">
+                                            <a target="_blank" class="u-button-text" target="_blank"
+                                                href="https://github.com/utpal-barman/ushop">
+                                                Project Details
+                                            </a>
+                                        </button>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="w-like">
-                                            <span class="ion-ios-plus-outline"></span>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </a>
@@ -527,19 +564,24 @@
                             </div>
                             <div class="work-content">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-12">
                                         <span class="w-title">UShop</span>
                                         <span class="label label-info">Flutter</span>
                                         <hr>
-                                        <div class="w-more"><span class="w-date">An
-                                                E-Commerce App</span>
+                                        <div class="w-more">
+                                            <span class="w-date">An
+                                                E-Commerce App with Cart, Order
+                                            </span>
+
                                         </div>
+                                        <button class="u-button">
+                                            <a target="_blank" class="u-button-text" target="_blank"
+                                                href="https://github.com/utpal-barman/ushop">
+                                                Project Details
+                                            </a>
+                                        </button>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="w-like">
-                                            <span class="ion-ios-plus-outline"></span>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </a>
@@ -566,88 +608,58 @@
                                 <div class="col-md-6">
                                     <div class="title-box-2">
                                         <h5 class="title-left">
-                                            Send Message Us
+                                            Get me in Github
                                         </h5>
                                     </div>
-                                    <div>
-                                        <form action="https://formspree.io/utpal.barman.bd@gmail.com" method="post"
-                                            role="form" class="contactForm">
-                                            <div id="sendmessage">Your message has been sent. Thank you!</div>
-                                            <div id="errormessage"></div>
-                                            <div class="row">
-                                                <div class="col-md-12 mb-3">
-                                                    <div class="form-group">
-                                                        <input type="text" name="name" class="form-control" id="name"
-                                                            placeholder="Your Name" data-rule="minlen:4"
-                                                            data-msg="Please enter at least 4 chars" />
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 mb-3">
-                                                    <div class="form-group">
-                                                        <input type="email" class="form-control" name="email" id="email"
-                                                            placeholder="Your Email" data-rule="email"
-                                                            data-msg="Please enter a valid email" />
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 mb-3">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" name="subject"
-                                                            id="subject" placeholder="Subject" data-rule="minlen:4"
-                                                            data-msg="Please enter at least 8 chars of subject" />
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 mb-3">
-                                                    <div class="form-group">
-                                                        <textarea class="form-control" name="message" rows="5"
-                                                            data-rule="required"
-                                                            data-msg="Please write something for us"
-                                                            placeholder="Message"></textarea>
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <button type="submit"
-                                                        class="button button-a button-big button-rouded">Send
-                                                        Message</button>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="_next" value="#">
-                                        </form>
-                                    </div>
+                                    <div class="github-card" data-github="utpal-barman/" data-width="400"
+                                        data-height="317" data-theme="medium"></div>
+                                    <!-- LinkedIn Embeded -->
+                                    <!-- <div class="LI-profile-badge" data-version="v1" data-size="large"
+                                        data-locale="en_US" data-type="horizontal" data-theme="light"
+                                        data-vanity="utpal-barman"><a class="LI-simple-link"
+                                            href='https://bd.linkedin.com/in/utpal-barman?trk=profile-badge'>Utpal
+                                            Barman</a>
+                                    </div> -->
                                 </div>
                                 <div class="col-md-6">
                                     <div class="title-box-2 pt-4 pt-md-0">
                                         <h5 class="title-left">
-                                            Get in Touch
+                                            Contact Me
                                         </h5>
                                     </div>
                                     <div class="more-info">
-                                        <p class="lead">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolorum
-                                            dolorem soluta quidem expedita aperiam aliquid at. Totam magni ipsum
-                                            suscipit amet? Autem nemo esse laboriosam ratione nobis mollitia inventore?
-                                        </p>
+
                                         <ul class="list-ico">
-                                            <li><span class="ion-ios-location"></span> LEVEL - 2, FLAT - 3B, HOUSE -
-                                                368/3, PIRERBAG ROAD (OLI MIAR BAZAR), WEST SHEWRAPARA, MIRPUR, DHAKA -
-                                                1216</li>
-                                            <li><span class="ion-ios-telephone"></span> (617) 557-0089</li>
-                                            <li><span class="ion-email"></span> contact@example.com</li>
+                                            <li><span class="material-icons">
+                                                    home
+                                                </span> West Shewrapara, Mirpur, Dhaka, Bangladesh
+                                            </li>
+
+                                            <li><span class="material-icons">
+                                                    call
+                                                </span>
+                                                <a href="tel:+8801731508492">+88 01731 508 492</a> or
+                                                <a href="tel:+8801672316112">+88 01672 316 112</a>
+                                            </li>
+                                            <li><span class="material-icons">
+                                                    mail_outline
+                                                </span><a
+                                                    href="mailto:utpal.barman.bd@gmail.com">utpal.barman.bd@gmail.com</a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="socials">
                                         <ul>
-                                            <li><a href=""><span class="ico-circle"><i
+                                            <li><a href="https://www.facebook.com/utpal777/"><span class="ico-circle"><i
                                                             class="ion-social-facebook"></i></span></a></li>
-                                            <li><a href=""><span class="ico-circle"><i
+                                            <li><a href="https://www.instagram.com/utpal_barman_/"><span
+                                                        class="ico-circle"><i
                                                             class="ion-social-instagram"></i></span></a></li>
-                                            <li><a href=""><span class="ico-circle"><i
-                                                            class="ion-social-twitter"></i></span></a></li>
-                                            <li><a href=""><span class="ico-circle"><i
-                                                            class="ion-social-pinterest"></i></span></a></li>
+                                            <li><a href="https://www.linkedin.com/in/utpal-barman/"><span
+                                                        class="ico-circle"><i
+                                                            class="ion-social-linkedin"></i></span></a></li>
+                                            <li><a href="https://github.com/utpal-barman"><span class="ico-circle"><i
+                                                            class="ion-social-github"></i></span></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -657,6 +669,10 @@
                 </div>
             </div>
         </div>
+
+
+
+
         <footer>
             <div class="container">
                 <div class="row">
@@ -689,8 +705,13 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
     <script src="lib/typed/typed.min.js"></script>
-    <!-- Contact Form JavaScript File -->
-    <script src="contactform/contactform.js"></script>
+
+    <!-- Github Embeded -->
+    <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+    <!-- LinkedIn Embeded -->
+    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+
+
 
     <!-- Template Main Javascript File -->
     <script src="js/main.js"></script>

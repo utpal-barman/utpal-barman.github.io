@@ -14,6 +14,10 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 .u-button-text {
   font-family: 'Noto Sans', sans-serif;
 }
@@ -56,6 +60,9 @@ a:hover {
   padding: 0 30px;
   box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
   transition: 0.5s;
+  display: block;
+  margin: 25px 0px 0px;
+  width: 100%;
 }
 
 .u-button-text, .u-button-text:hover {
@@ -108,6 +115,10 @@ a:hover {
   border: 10px solid #8f96bf;
   transition: 0.5s;
   box-shadow: 0 0 20px 0px #555666;
+}
+
+.u-circle-border {
+  border-radius: 50%;
 }
 
 .u-blue-circle:hover {
@@ -247,6 +258,10 @@ a:hover {
   height: 5px;
   background-color: var(--primary-color);
   margin: 0 auto;
+}
+
+.work-img {
+  height: 220px !important;
 }
 
 /*--/ Title Left /--*/
@@ -1094,9 +1109,12 @@ span.material-icons {
 
 /* Company Logo */
 img.u-thumb-img {
-  padding-bottom: 8px;
   margin: 8px;
   width: 40px;
+  height: 40px;
+  object-fit: contain;
+  box-shadow: 0 0 20px 5px #42424236;
+  background-color: white;
 }
 
 /* Experience Card */
@@ -1107,17 +1125,63 @@ img.u-thumb-img {
   border-radius: 30px;
 }
 
+.u-align-center {
+  display: flex;
+  align-items: center;
+}
 
-/* css for mobile devices */
+#u-form-pop-up {
+  position: fixed;
+  right: 0px;
+  left: 0;
+  bottom: 20px;
+  background-color: white;
+  z-index: 99;
+  padding: 25px;
+  text-align: center;
+  max-width: 700px;
+  transition: 0.5s;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px #55555555;
+  margin: auto;
+}
 
-@media (max-width: 980px) {
+/* css for mobile, tab devices */
+
+@media (max-width: 991px) {
   .u-hide-on-mobile {
     display: none !important;
   }
 }
-/* css for tab, pc */
-@media (min-width: 981px) {
+/* css for pc */
+@media (min-width: 992px) {
   .u-show-on-mobile-only {
-    display: none !important;
+      display: none !important;
+  }
+}
+
+/* mobile style nav */
+
+@media (max-width: 992px) {
+  .navbar-collapse {
+      position: absolute;
+      top: 65px;
+      left: 100%;
+      margin-left: 50%;
+      background-color: #ffffff;
+      padding: 15px;
+      width: 100%;
+      height: 1000px;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      display: block;
+  }
+  .navbar-collapse.collapsing {
+      height: auto !important;
+      margin-left: 50%;
+      transition: all 0.3s ease;
+      display: block;
+  }
+  .navbar-collapse.show {
+      left: 0;
   }
 }
