@@ -77,7 +77,6 @@ a:hover {
   border: 0;
   height: 48px;
   padding: 0 30px;
-  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
   transition: 0.5s;
   display: block;
   margin: 25px 0px 0px;
@@ -129,21 +128,25 @@ a:hover {
   background-color: white;
 }
 
-
 .u-blue-circle {
-  border: 10px solid #8f96bf;
+  border: 10px solid #ebebf1;
   transition: 0.5s;
+  box-shadow: 0 0 20px 20px #00000026;
+}
+
+
+.u-blue-circle:hover {
+  border: 10px solid #8f96bf;
   box-shadow: 0 0 20px 0px #555666;
 }
+
+
 
 .u-circle-border {
   border-radius: 50%;
 }
 
-.u-blue-circle:hover {
-  border-color: #ebebf1;
-  box-shadow: 0 0 20px 20px #00000026;
-}
+
 
 .bg-brand {
   background: var(--primary-color) !important;
