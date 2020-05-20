@@ -20,6 +20,25 @@ html {
 
 .u-button-text {
   font-family: 'Noto Sans', sans-serif;
+  text-transform: uppercase;
+}
+
+.u-social {
+  display: inline-block;
+  padding: 4px;
+  margin: 4px;
+}
+.u-social-icons-block i::before {
+  color: white;
+}
+
+.u-social img {
+  width: 32px;
+  transition: 0.5s;
+}
+
+.u-social img:hover {
+  width: 48px;
 }
 
 body {
@@ -124,6 +143,11 @@ a:hover {
 .u-blue-circle:hover {
   border-color: #ebebf1;
   box-shadow: 0 0 20px 20px #00000026;
+}
+
+.bg-brand {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
 }
 
 .p-r {
