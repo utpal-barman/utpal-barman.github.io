@@ -127,10 +127,6 @@ a:hover {
 }
 
 
-.u-detail-address {
-  width: 80%;
-}
-
 
 /* Education */
 .u-institute-logo {
@@ -166,21 +162,6 @@ a:hover {
   border-color: var(--primary-color) !important;
 }
 
-.p-r {
-  position: relative;
-}
-
-.color-a {
-  color: var(--primary-color);
-}
-
-.color-d {
-  color: #f5f5f5;
-}
-
-.color-text-a {
-  color: #4e4e4e;
-}
 
 .box-shadow,
 .paralax-mf,
@@ -195,24 +176,6 @@ a:hover {
   box-shadow: 0 0 0 4px #cde1f8;
 }
 
-.display-5 {
-  font-size: 2.5rem;
-  font-weight: 300;
-  line-height: 1.1;
-}
-
-.display-6 {
-  font-size: 2rem;
-  font-weight: 300;
-  line-height: 1.1;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  margin-right: 4px;
-  overflow: hidden;
-}
 
 .bg-image {
   background-repeat: no-repeat;
@@ -261,43 +224,9 @@ a:hover {
   padding: 4rem 0;
 }
 
-.sect-pt4 {
-  padding-top: 4rem;
-}
 
 .sect-mt4 {
   margin-top: 4rem;
-}
-
-/*--/ Title s /--*/
-
-.title-s {
-  font-weight: 600;
-  color: #1e1e1e;
-  font-size: 1.1rem;
-}
-
-/*--/ Title A /--*/
-
-.title-box {
-  margin-bottom: 4rem;
-}
-
-.title-a {
-  font-size: 3rem;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.subtitle-a {
-  color: #4e4e4e;
-}
-
-.line-mf {
-  width: 40px;
-  height: 5px;
-  background-color: var(--primary-color);
-  margin: 0 auto;
 }
 
 .work-img {
@@ -310,10 +239,6 @@ a:hover {
   margin-bottom: 3rem;
 }
 
-.title-left {
-  font-size: 2rem;
-  position: relative;
-}
 
 .title-left:before {
   content: "";
@@ -324,11 +249,7 @@ a:hover {
   bottom: -12px;
 }
 
-/*------/ Box /------*/
 
-.box-pl2 {
-  padding-left: 2rem;
-}
 
 .box-shadow-full {
   padding: 3rem 1.25rem;
@@ -812,38 +733,7 @@ span.u-nav-call-icon {
   color: #fff;
 }
 
-/*======================================
-//--//-->   ABOUT
-======================================*/
 
-.about-mf .box-shadow-full {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-}
-
-.about-mf .about-img {
-  margin-bottom: 2rem;
-}
-
-.about-mf .about-img img {
-  margin-left: 10px;
-}
-
-.skill-mf span {
-  color: #4e4e4e;
-}
-
-.skill-mf .progress {
-  background-color: #cde1f8;
-  margin: 0.5rem 0 1.2rem 0;
-  border-radius: 0;
-  height: 0.7rem;
-}
-
-.skill-mf .progress .progress-bar {
-  height: 0.7rem;
-  background-color: var(--primary-color);
-}
 
 .progress {
   border-radius: 30px;
@@ -925,11 +815,7 @@ span.u-nav-call-icon {
   color: var(--primary-color);
 }
 
-.work-content .w-like {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  float: right;
-}
+
 
 .work-content .w-like a {
   color: var(--primary-color);
