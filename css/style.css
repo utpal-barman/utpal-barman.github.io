@@ -1056,6 +1056,11 @@ img.u-thumb-img {
   align-items: center;
 }
 
+.u-neumorphism-shadow {
+  box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.2),
+   -8px -8px 12px 0 rgba(255, 255, 255, 0.2);
+}
+
 #u-form-pop-up {
   position: fixed;
   right: 0px;
