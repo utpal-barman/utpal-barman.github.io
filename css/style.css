@@ -1039,14 +1039,14 @@ img.u-thumb-img {
   width: 40px;
   height: 40px;
   object-fit: contain;
-  box-shadow: 0 0 20px 5px #42424236;
+  box-shadow: 0 0 20px 5px #42424217;
   background-color: white;
 }
 
 /* Experience Card */
 
 .u-rounded-gray-bg {
-  background-color: #eee;
+  background-color: #eeeeee60;
   padding: 8px;
   border-radius: 30px;
 }
