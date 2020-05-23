@@ -1081,7 +1081,19 @@ body.modal-open {
   overflow: hidden;
 }
 
+.navbar-b .navbar-brand { 
+  font-size: 24px;
+}
+/* css for mobile only */
+
+@media (max-width: 768px){
+  .navbar-b .navbar-brand { 
+    font-size: 18px;
+  }
+}
+
 /* css for mobile, tab devices */
+
 
 @media (max-width: 991px) {
   .u-hide-on-mobile {
