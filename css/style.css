@@ -1067,7 +1067,7 @@ body.modal-open {
 }
 
 .u-container {
-  padding: 40px;
+  padding: 40px 20px;
   margin: 20px;
   background-image: linear-gradient(45deg, #1b1f44b8, transparent);
 }
