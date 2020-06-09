@@ -1070,6 +1070,21 @@ body.modal-open {
   padding: 40px 20px;
   margin: 20px;
   background-image: linear-gradient(45deg, #1b1f44b8, transparent);
+
+}
+
+.cta-container {
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 10%;
+}
+
+.u-overlay {
+  height: 100%;
+  width: 100%;
+  background-color:rgba(13, 18, 58, 0.78);
+  z-index: 10;
 }
 
 .navbar-b .navbar-brand { 
