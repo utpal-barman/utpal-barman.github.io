@@ -64,7 +64,7 @@
                     <code> Input </code>
 
                     <textarea id="template-msg" class="u-fullscreen p-2 my-2" onclick="updateTextPreview()"
-                        oninput="this.onclick();"><pre class="prettyprint"></pre></textarea>
+                        oninput="this.onclick();"></textarea>
 
                 </div>
 
@@ -97,150 +97,11 @@
     <!-- all script -->
     <script>
 
-        let templates = {
-            "request": {
-                "sub": "Thanks for your request!",
-                "msg": `Your request has been received! Thank you for considering us–-we'll be in touch soon.
-    
-    Please find a copy of your request below.
-    
-    If you have any questions regarding this request, please don't hesitate to get in touch with us at {{DEFAULT_EMAIL}}.
-    
-    Sincerely,
-    
-    {{COMPANY_NAME}}
-                `
-            },
 
-            "quotes": {
-                "sub": "Quote from {{COMPANY_NAME}} - {{CURRENT_DATE}}",
-                "msg": `Hi {{CLIENT_NAME}},
-    
-    Thank you for asking us to quote on your project. Please find a detailed copy of our quote attached to this email.
-    
-    The quote total is {{QUOTE_TOTAL}} as of {{QUOTE_SENT_DATE}}.
-    
-    If you have any questions or concerns regarding this quote, please don't hesitate to get in touch with us at {{DEFAULT_EMAIL}}.
-    
-    Sincerely,
-    
-    {{COMPANY_NAME}}`
-            },
-
-            "approval": {
-                "sub": "Thank you for approving quote {{QUOTE_NUMBER}}",
-                "msg": `Hi {{CLIENT_NAME}},
-    
-    We've received your approval of quote {{QUOTE_NUMBER}}. Thank you for choosing us—we'll be in touch soon with next steps.
-    
-    Please find a signed copy of the approved quote below.
-    
-    If you have any questions or concerns, please don't hesitate to get in touch with us at {{DEFAULT_EMAIL}}.
-    
-    We appreciate your business.
-    
-    Sincerely,
-    
-    {{COMPANY_NAME}}`,
-            },
-
-
-            "job": {
-                "sub": "{{JOB_FORM_NAME}} from {{COMPANY_NAME}}",
-                "msg": `Hello {{CLIENT_NAME}},
-    
-    The {{JOB_FORM_NAME}} document related to our appointment is now available. You can save or print a copy to keep for your records.
-    
-    If you have any questions or concerns, please don't hesitate to get in touch with us at {{DEFAULT_EMAIL}}.
-    
-    Sincerely,
-    
-    {{COMPANY_NAME}}`,
-            },
-
-            "chem": {
-                "sub": "Chemical Treatment by {{COMPANY_NAME}} - {{CURRENT_DATE}}",
-                "msg": `Hi {{CLIENT_NAME}},
-    
-    Please find attached a record of your chemical treatment.
-    
-    If you have any questions or concerns, please don't hesitate to get in touch with us at {{DEFAULT_EMAIL}}.
-    
-    Sincerely,
-    
-    {{COMPANY_NAME}}`,
-            },
-
-            "invoice": {
-                "sub": "Chemical Treatment by {{COMPANY_NAME}} - {{CURRENT_DATE}}",
-                "msg": `Hi {{CLIENT_NAME}},
-    
-    Please find attached a record of your chemical treatment.
-    
-    If you have any questions or concerns, please don't hesitate to get in touch with us at {{DEFAULT_EMAIL}}.
-    
-    Sincerely,
-    
-    {{COMPANY_NAME}}`,
-            },
-
-            "payment": {
-                "sub": "Receipt for {{PAYMENT_OR_DEPOSIT}} from {{COMPANY_NAME}} - {{CURRENT_DATE}}",
-                "msg": `Hi {{CLIENT_NAME}},
-    
-    This email has a receipt attached to it for your {{PAYMENT_OR_DEPOSIT}} of {{PAYMENT_AMOUNT}}.
-    
-    Please keep this email for your reference.
-    
-    If you have any questions or concerns, please don't hesitate to get in touch with us at {{DEFAULT_EMAIL}}.
-    
-    Sincerely,
-    
-    {{COMPANY_NAME}}`,
-            },
-
-            "stat": {
-                "sub": "Statement from {{COMPANY_NAME}} - {{CURRENT_DATE}}",
-                "msg": `Hi {{CLIENT_NAME}},
-    
-    Please find attached a detailed statement of your payments, invoices, and account balance as of {{CURRENT_DATE}}.
-    
-    If you have any questions or concerns regarding this statement, please don't hesitate to get in touch with us at {{DEFAULT_EMAIL}}.
-    
-    Thanks for your business.`,
-            },
-
-            "signed": {
-                "sub": "Signed document from {{COMPANY_NAME}} - {{CURRENT_DATE}}",
-                "msg": `Hi {{CLIENT_NAME}},
-    
-    For your records, we have attached a signed document to this email.
-    
-    If you have any questions or concerns, please don't hesitate to get in touch with us at {{DEFAULT_EMAIL}}.
-    
-    Thanks for your business.
-    
-    Sincerely,
-    
-    {{COMPANY_NAME}}
-    `,
-            }
-        }
-        var t;
 
         function updateTextTemplate(templateName) {
-
-            t = templateName;
-            console.log(t);
-
-            //$("#template-sub").val(templates[templateName].sub);
-            $("#template-msg").val(templates[templateName].msg);
-
             updateTextPreview();
         }
-
-        var today = new Date();
-        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
 
 
         function updateTextPreview() {
@@ -251,42 +112,10 @@
         }
 
 
-        function copyUrl() {
-            var copyText = document.getElementById("inputUrlField");
 
 
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-
-            document.execCommand("copy");
-
-        }
-
-        document.getElementById("resetButton").addEventListener("click", (function () {
-            updateTextTemplate(t);
-        }));
-        var focusId = "#template-msg";
-
-        function getFocus() {
 
 
-            jQuery("#template-msg").on('focus', function () {
-                focusId = "#template-msg";
-            });
-        }
-
-
-        function insertVariableHandler(variableName) {
-
-            getFocus();
-            var $txt = jQuery(focusId);
-            var caretPos = $txt[0].selectionStart;
-            var textAreaTxt = $txt.val();
-            var txtToAdd = variableName;
-            $txt.val(textAreaTxt.substring(0, caretPos) + txtToAdd + textAreaTxt.substring(caretPos));
-
-            updateTextPreview();
-        }
 
 
 
