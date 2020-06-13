@@ -44,7 +44,7 @@ To learn more about me, join the conversation:
 <br/>
 <i>Software Engineer</i>
 <br/>
-<a href="mailto:utpal.barman.bd@gmail.com">utpal.barman.bd@gmail.com</a>
+Email: <a href="mailto:utpal.barman.bd@gmail.com">utpal.barman.bd@gmail.com</a>
 
 
 <!-- markdownlint-enable -->
