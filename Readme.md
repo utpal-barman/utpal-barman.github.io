@@ -38,7 +38,9 @@ To learn more about me, join the conversation:
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-<a href="https://www.linkedin.com/in/utpal-barman/"><img src="https://github.com/utpal-barman/ushop/raw/master/utpal-barman.png" width="100px;" alt=""/><br /><sub><b>Utpal Barman</b></sub></a>
+<a href="https://www.linkedin.com/in/utpal-barman/"><img src="https://github.com/utpal-barman/ushop/raw/master/utpal-barman.png" width="100px;" alt=""/><br /><sub><b>Utpal Barman</b><br/>
+Software Engineer <br/>
+<a href="mailto:utpal.barman.bd@gmail.com">utpal.barman.bd@gmail.com</a></sub></a>
 
 
 <!-- markdownlint-enable -->
