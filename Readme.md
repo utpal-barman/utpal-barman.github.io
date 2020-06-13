@@ -4,7 +4,7 @@ This is my personal portfolio site. This is made with HTML, CSS and JS.
 
 ⭐ Star this on GitHub — it helps!
 
-##Tools used
+## Tools used
 
 - Bootstrap
 - JQuery
@@ -15,11 +15,11 @@ This is my personal portfolio site. This is made with HTML, CSS and JS.
 - Easing JS
 - Typed JS
 
-##Link
+## Link
 
 [utpal-barman.github.io](https://utpal-barman.github.io)
 
-##Screenshot
+## Screenshot
 
 ![https://utpal-barman.github.io](https://github.com/utpal-barman/utpal-barman.github.io/blob/master/screenshot/screenshot.png)
 
