@@ -424,7 +424,8 @@ a:hover {
   height: 44px;
   text-align: center;
   line-height: 1;
-  font-size: 16px;
+  font-size: 30px;
+  padding: 10px;
   border-radius: 50%;
   left: 15px;
   bottom: 15px;
