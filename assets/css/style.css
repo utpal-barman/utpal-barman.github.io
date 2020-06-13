@@ -24,12 +24,12 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6, .u-header-span {
   font-family: 'Montserrat', sans-serif;
   color: #1e1e1e;
 }
 
-h2 {
+h2, .u-header-span {
   font-size: 30px;
   font-weight: 600;
 }
@@ -49,7 +49,13 @@ h3 {
   }
 }
 
+.u-opcaity-70 {
+  opacity: 0.7;
+}
 
+.u-opcaity-100-on-hover:hover {
+  opacity: 100 !important;
+}
 
 .u-button-text {
   font-family: 'Noto Sans', sans-serif;
@@ -73,6 +79,27 @@ h3 {
 .u-social img:hover {
   margin: 0px;
   width: 48px;
+}
+
+.u-text-brand {
+  color: var(--primary-color);
+}
+
+.u-btn-brand {
+  color: #fff;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.u-btn-brand:hover {
+  color: #fff !important;
+  background-color: var(--primary-color);
+  opacity: 0.9;
+
 }
 
 body {
@@ -147,6 +174,10 @@ a:hover {
 .u-blue-circle:hover {
   border: 10px solid #8f96bf;
   box-shadow: 0 0 20px 0px #555666;
+}
+
+.u-carousel-slider:focus {
+  border: 0px;
 }
 
 
@@ -860,43 +891,6 @@ footer .credits a {
   color: #fff;
 }
 
-/*======================================
-//--//-->   CONtaCT FORM
-======================================*/
-
-#sendmessage {
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  display: none;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-#errormessage {
-  color: red;
-  display: none;
-  border: 1px solid red;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-#sendmessage.show,
-#errormessage.show,
-.show {
-  display: block;
-}
-
-.validation {
-  color: red;
-  display: none;
-  margin: 0 0 20px;
-  font-weight: 400;
-  font-size: 13px;
-}
 
 /*======================================
 //--//-->   BUTTON
@@ -1089,6 +1083,18 @@ body.modal-open {
 
 .navbar-b .navbar-brand { 
   font-size: 24px;
+}
+
+.slick-arrow:before {
+  color: var(--primary-color) !important;
+  font-size: 40px;
+}
+
+
+.slick-arrow{
+  z-index: 99;
+  width: 30px;
+  height: 30px;
 }
 
 
