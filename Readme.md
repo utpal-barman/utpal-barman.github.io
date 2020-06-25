@@ -23,18 +23,17 @@ This is my personal portfolio site. This is made with HTML, CSS and JS.
 
 ![https://utpal-barman.github.io](https://github.com/utpal-barman/utpal-barman.github.io/blob/master/screenshot/screenshot.png)
 
-
 ## Spread the word :hatched_chick:
 
 To learn more about me, join the conversation:
-- [LinkedIn](https://www.linkedin.com/in/utpal-barman/) 
+
+- [LinkedIn](https://www.linkedin.com/in/utpal-barman/)
 - [Skype](https://join.skype.com/invite/YKZe1ad0yuyK)
 - [Telegram](https://t.me/utpal_barman)
 - [Facebook](https://www.facebook.com/utpal777)
-- [Instragram](https://www.instagram.com/utpal_barman_/)
+- [Instagram](https://www.instagram.com/utpal_barman_/)
 
 ## Contributor
-
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -49,4 +48,3 @@ Email: <a href="mailto:utpal.barman.bd@gmail.com">utpal.barman.bd@gmail.com</a>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
