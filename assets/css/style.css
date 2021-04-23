@@ -573,7 +573,7 @@ span.u-nav-call-icon {
 
 .navbar-b.navbar-reduce {
   transition: all 0.5s ease-in-out;
-  background-color: #fff;
+  background-color: rgb(255 255 255 / 96%);
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -1060,6 +1060,16 @@ img.u-thumb-img {
 body.modal-open {
   overflow: hidden;
 }
+
+p.u-web-project-text {
+  line-height: 1.8;
+  color: grey;
+}
+
+.spacer{
+  margin-bottom: 72px !important;
+}
+
 
 .u-container {
   padding: 40px 20px;
