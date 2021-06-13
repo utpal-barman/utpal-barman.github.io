@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/utpal/public_html/
-    - /bin/cp -r * $DEPLOYPATH
+    - /bin/cp -R * $DEPLOYPATH
