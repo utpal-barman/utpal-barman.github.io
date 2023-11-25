@@ -11,13 +11,18 @@
 /* global styling */
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Courier New', monospace;
   margin: 0;
   padding: 0;
 }
 
 html {
   overflow-y: scroll;
+}
+
+/* Bootstrap css override */
+.container {
+  max-width: 1300px;
 }
 
 h1,
@@ -27,8 +32,8 @@ h4,
 h5,
 h6,
 .u-header-span {
-  font-family: 'Montserrat', sans-serif;
-  color: #1e1e1e;
+  font-family: 'Courier New', monospace;
+  color: #f4f4f4;
 }
 
 h2,
@@ -46,6 +51,7 @@ h3 {
   h2 {
     font-size: 22px;
   }
+
   h3 {
     font-size: 20px !important;
   }
@@ -60,8 +66,9 @@ h3 {
 }
 
 .u-button-text {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Courier New', monospace;
   text-transform: uppercase;
+  font-size: 14px;
 }
 
 .u-social {
@@ -103,8 +110,8 @@ h3 {
 }
 
 body {
-  background-color: #f5f5f5;
-  color: #4e4e4e;
+  background-color: #000;
+  color: #bfbfbf;
   font-size: 16px !important;
 }
 
@@ -152,7 +159,8 @@ a:hover {
   height: 70px;
   object-fit: cover;
   border-radius: 50%;
-  background-color: white;
+  background-color: rgb(89 89 89 / 53%);
+  margin-bottom: 16px;
 }
 
 .u-blue-circle {
@@ -450,6 +458,7 @@ a:hover {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -461,6 +470,7 @@ a:hover {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -478,6 +488,7 @@ span.u-nav-call-icon {
 .navbar {
   padding: 0.5rem 2rem !important;
 }
+
 .navbar-b {
   transition: all 0.5s ease-in-out;
   background-color: transparent;
@@ -525,12 +536,12 @@ span.u-nav-call-icon {
   width: 35px;
 }
 
-.navbar-b.navbar-trans .show > .nav-link:before,
-.navbar-b.navbar-trans .active > .nav-link:before,
+.navbar-b.navbar-trans .show>.nav-link:before,
+.navbar-b.navbar-trans .active>.nav-link:before,
 .navbar-b.navbar-trans .nav-link.show:before,
 .navbar-b.navbar-trans .nav-link.active:before,
-.navbar-b.navbar-reduce .show > .nav-link:before,
-.navbar-b.navbar-reduce .active > .nav-link:before,
+.navbar-b.navbar-reduce .show>.nav-link:before,
+.navbar-b.navbar-reduce .active>.nav-link:before,
 .navbar-b.navbar-reduce .nav-link.show:before,
 .navbar-b.navbar-reduce .nav-link.active:before {
   width: 35px;
@@ -544,8 +555,8 @@ span.u-nav-call-icon {
   color: #fff;
 }
 
-.navbar-b.navbar-trans .show > .nav-link,
-.navbar-b.navbar-trans .active > .nav-link,
+.navbar-b.navbar-trans .show>.nav-link,
+.navbar-b.navbar-trans .active>.nav-link,
 .navbar-b.navbar-trans .nav-link.show,
 .navbar-b.navbar-trans .nav-link.active {
   color: #fff;
@@ -553,14 +564,13 @@ span.u-nav-call-icon {
 
 .navbar-b.navbar-reduce {
   transition: all 0.5s ease-in-out;
-  background-color: rgb(255 255 255 / 96%);
+  background-color: rgb(237 237 237 / 25%);
+  backdrop-filter: blur(16px);
   padding-top: 15px;
   padding-bottom: 15px;
 }
 
-.navbar-b.navbar-reduce .nav-link {
-  color: var(--primary-color);
-}
+
 
 .navbar-b.navbar-reduce .nav-link:before {
   background-color: var(--primary-color);
@@ -570,16 +580,14 @@ span.u-nav-call-icon {
   color: var(--primary-color);
 }
 
-.navbar-b.navbar-reduce .show > .nav-link,
-.navbar-b.navbar-reduce .active > .nav-link,
+.navbar-b.navbar-reduce .show>.nav-link,
+.navbar-b.navbar-reduce .active>.nav-link,
 .navbar-b.navbar-reduce .nav-link.show,
 .navbar-b.navbar-reduce .nav-link.active {
   color: var(--primary-color);
 }
 
-.navbar-b.navbar-reduce .navbar-brand {
-  color: var(--primary-color);
-}
+
 
 .navbar-b.navbar-reduce .navbar-toggler span {
   background-color: #1b1b1b;
@@ -755,7 +763,7 @@ span.u-nav-call-icon {
 ======================================*/
 
 .service-box {
-  background-color: #fff;
+  background-color: #111;
   padding: 2.5rem 1.3rem;
   border-radius: 1rem;
   margin-bottom: 3rem;
@@ -785,15 +793,12 @@ span.u-nav-call-icon {
   padding: 0.4rem 0;
 }
 
-.service-box .s-description {
-  color: #4e4e4e;
-}
 
 .work-box {
   margin-bottom: 3rem;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  background-color: #fff;
+  background-color: #181818;
 }
 
 .work-box:hover img {
@@ -815,7 +820,7 @@ span.u-nav-call-icon {
 }
 
 .work-content .w-more {
-  color: #4e4e4e;
+  color: #949494;
   font-size: 0.8rem;
 }
 
@@ -921,9 +926,11 @@ footer .credits a {
     margin-top: 3rem;
     padding-left: 0rem;
   }
+
   .card-blog {
     margin-bottom: 3rem;
   }
+
   .contact-mf .box-pl2 {
     margin-top: 3rem;
     padding-left: 0rem;
@@ -934,17 +941,21 @@ footer .credits a {
   .box-shadow-full {
     padding: 3rem;
   }
+
   .navbar-b.navbar-trans .nav-item,
   .navbar-b.navbar-reduce .nav-item {
     padding-left: 10px;
   }
+
   .navbar-b.navbar-trans .nav-link:before,
   .navbar-b.navbar-reduce .nav-link:before {
     margin-left: 18px;
   }
+
   .intro .intro-title {
     font-size: 4.5rem;
   }
+
   .intro .intro-subtitle {
     font-size: 2.5rem;
   }
@@ -997,7 +1008,11 @@ span.material-icons.rounded {
   padding: 30px;
   margin: 24px 2px;
   border-radius: 8px;
-  background-color: white;
+  background-color: #111111;
+}
+
+.u-card a{
+  color: #3c85b5;
 }
 
 /* Company Logo */
@@ -1020,7 +1035,7 @@ img.u-thumb-img {
 /* Experience Card */
 
 .work__experienceDetail span {
-  color: rgb(109, 109, 109) !important;
+  color: rgb(204 204 204) !important;
 }
 
 .work__experienceCard {
@@ -1029,7 +1044,7 @@ img.u-thumb-img {
 }
 
 .u-rounded-gray-bg {
-  background-color: #eeeeee60;
+  background-color: #181818;
   border-radius: 8px;
 }
 
@@ -1049,7 +1064,7 @@ body.modal-open {
 
 p.u-web-project-text {
   line-height: 1.8;
-  color: grey;
+  color: #a2a2a2;
 }
 
 .spacer {
@@ -1106,6 +1121,7 @@ p.u-web-project-text {
     display: none !important;
   }
 }
+
 /* css for pc */
 @media (min-width: 992px) {
   .u-show-on-mobile-only {
@@ -1132,12 +1148,14 @@ p.u-web-project-text {
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     display: block;
   }
+
   .navbar-collapse.collapsing {
     height: auto !important;
     margin-left: 50%;
     transition: all 0.3s ease;
     display: block;
   }
+
   .navbar-collapse.show {
     left: 0;
   }
