@@ -571,6 +571,7 @@ span.u-nav-call-icon {
   transition: all 0.5s ease-in-out;
   background-color: rgb(237 237 237 / 25%);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding-top: 15px;
   padding-bottom: 15px;
 }
