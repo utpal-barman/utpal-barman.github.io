@@ -1323,10 +1323,22 @@ img {
 }
 
 
-@media (max-screen: 600px) {
-  .u-timeline.u-card {
-    padding-right: 0px;
-  }
+@media (max-width: 600px) {
+    .u-timeline.u-card {
+      padding-right: 16px;
+    }
+
+    .comment {
+      margin-left: 0px !important;
+    }
+
+    .timeline {
+      width: 100% !important;
+    }
+
+    .timeline-item {
+      gap: 16px;
+    }
 }
 
 
