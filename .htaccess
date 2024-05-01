@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^www\.utpals\.com$ [NC]
+    RewriteRule ^(.*)$ http://utpals.com/$1 [R=301,L]
+    RewriteRule ^resume/?$ https://utpals.com/resume/Utpal_Barman_Resume.pdf [L,R=301]
+</IfModule>
