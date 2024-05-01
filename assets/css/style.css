@@ -117,7 +117,7 @@ body {
 }
 
 body#u-body {
-  background: linear-gradient(135deg, #44324f 0% 2%, #000000 20% 100%);
+  background: linear-gradient(135deg, #44324f 0% 5%, #11173d 15% 20%, #000 30% 100%);
 }
 
 a {
@@ -1324,21 +1324,21 @@ img {
 
 
 @media (max-width: 600px) {
-    .u-timeline.u-card {
-      padding-right: 16px;
-    }
+  .u-timeline.u-card {
+    padding-right: 16px;
+  }
 
-    .comment {
-      margin-left: 0px !important;
-    }
+  .comment {
+    margin-left: 0px !important;
+  }
 
-    .timeline {
-      width: 100% !important;
-    }
+  .timeline {
+    width: 100% !important;
+  }
 
-    .timeline-item {
-      gap: 16px;
-    }
+  .timeline-item {
+    gap: 16px;
+  }
 }
 
 
