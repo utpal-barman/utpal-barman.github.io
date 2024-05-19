@@ -4,14 +4,23 @@
   Author: Utpal Barman
 */
 
+
 :root {
-  --primary-color: #00ff3a;
+  --accent-color: #43ffa4;
+  --accent-color-dark: #479ea1; 
+  --brand-violet: #321d31;
+  --brand-blue: #1b0e4a;
+  --brand-violet-light: #87498c;
+  --brand-blue-light: #0c3475;
+  --header-text: #f4f4f4;
+  --body-text: #bfbfbf;
 }
 
 /* global styling */
 
 * {
-  font-family: 'Courier New', monospace;
+  font-family: Verdana, sans-serif;
+  
   margin: 0;
   padding: 0;
 }
@@ -33,8 +42,7 @@ h4,
 h5,
 h6,
 .u-header-span {
-  font-family: 'Courier New', monospace;
-  color: #f4f4f4;
+  color: var(--header-text);
 }
 
 h2,
@@ -66,11 +74,6 @@ h3 {
   opacity: 100 !important;
 }
 
-.u-button-text {
-  font-family: 'Courier New', monospace;
-  text-transform: uppercase;
-  font-size: 14px;
-}
 
 .u-social {
   display: inline-block;
@@ -91,50 +94,78 @@ h3 {
 }
 
 .u-text-brand {
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
-.u-btn-brand {
-  color: #fff;
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  width: 100%;
-  padding: 15px;
-  text-align: center;
-  text-transform: uppercase;
-}
 
-.u-btn-brand:hover {
-  color: #fff !important;
-  background-color: var(--primary-color);
-  opacity: 0.9;
-}
 
 body {
   background-color: #000;
-  color: #bfbfbf;
+  color: var(--body-text);
   font-size: 16px !important;
 }
 
 body#u-body {
-  background: linear-gradient(135deg, #44324f 0% 5%, #11173d 15% 20%, #000 30% 100%);
+  background-size: 300% 300%;
+  animation: gradientAnimation 16ss ease infinite;
+  -webkit-animation: gradientAnimation 16s ease infinite;
+  -moz-animation: gradientAnimation 16ss ease infinite;
+  background-color: #101237;
+  background-image: radial-gradient(at 76% 40%, #20254c 0, transparent 50%), radial-gradient(at 55% 22%, #071a1d 0, transparent 50%), radial-gradient(at 59% 5%, #5f255d 0, transparent 50%), radial-gradient(at 79% 2%, #141e3e 0, transparent 50%), radial-gradient(at 24% 64%, #12373f 0, transparent 50%), radial-gradient(at 13% 82%, #311358 0, transparent 50%), radial-gradient(at 52% 55%, #67ff67 0, transparent 50%);
+}
+
+@-webkit-keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 a {
   color: #1e1e1e;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 a:hover {
-  color: var(--primary-color);
+  color: var(--accent-color);
   text-decoration: none;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
-.u-button-text,
-.u-button-text:hover {
-  color: white !important;
-}
+
 
 .u-center {
   display: block;
@@ -155,7 +186,8 @@ a:hover {
 }
 
 .label-info {
-  background-color: #5bc0de;
+  background-color: var(--accent-color);
+  color: #000;
 }
 
 /* Education */
@@ -170,7 +202,7 @@ a:hover {
 
 .u-blue-circle {
   border: 10px solid #ebebf1;
-  transition: 0.5s;
+  transition: 0.25s;
   box-shadow: 0 0 20px 20px #00000026;
 }
 
@@ -187,14 +219,6 @@ a:hover {
   border-radius: 50%;
 }
 
-.bg-gradient {
-  background-image: linear-gradient(135deg, #87498c, #0c3475);
-  border: none;
-}
-
-.bg-gradient:hover {
-  background-image: linear-gradient(45deg, #87498c, #0c3475);
-}
 
 .box-shadow,
 .paralax-mf,
@@ -204,10 +228,7 @@ a:hover {
   box-shadow: 0 13px 8px -10px rgba(0, 0, 0, 0.1);
 }
 
-.box-shadow-a,
-.button:hover {
-  box-shadow: 0 0 0 4px #cde1f8;
-}
+
 
 .bg-image {
   background-repeat: no-repeat;
@@ -216,22 +237,12 @@ a:hover {
   background-position: center center;
 }
 
-.overlay-mf {
-  background-color: #000;
-}
 
-.overlay-mf {
-  position: absolute;
-  top: 0;
-  left: 0px;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0.7;
-}
+
+
 
 .progress-bar {
-  background-color: var(--primary-color);
+  background-image: linear-gradient(90deg, var(--accent-color-dark), var(--accent-color));
 }
 
 .paralax-mf {
@@ -274,7 +285,7 @@ a:hover {
   content: '';
   position: absolute;
   height: 3px;
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   width: 100px;
   bottom: -12px;
 }
@@ -305,15 +316,15 @@ a:hover {
   border-radius: 50%;
   line-height: 1.4;
   margin: 0 15px 0 0;
-  box-shadow: 0 0 0 3px var(--primary-color);
-  transition: all 500ms ease;
+  box-shadow: 0 0 0 3px var(--accent-color);
+  transition: all 0.25s ease;
 }
 
 .socials .ico-circle:hover {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   color: #fff;
   box-shadow: 0 0 0 3px #cde1f8;
-  transition: all 500ms ease;
+  transition: all 0.25s ease;
 }
 
 /*------/ Ul resect /------*/
@@ -335,7 +346,7 @@ a:hover {
 }
 
 .list-ico span {
-  color: var(--primary-color);
+  color: var(--accent-color);
   margin-right: 10px;
 }
 
@@ -349,7 +360,7 @@ a:hover {
   line-height: 1.55;
   margin: 0 auto;
   text-align: center;
-  box-shadow: 0 0 0 10px var(--primary-color);
+  box-shadow: 0 0 0 10px var(--accent-color);
   display: block;
 }
 
@@ -371,7 +382,7 @@ a:hover {
   background: #cde1f8;
   border: 0px solid #cde1f8;
   display: block;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.25s ease-in-out;
   cursor: pointer;
 }
 
@@ -396,7 +407,7 @@ a:hover {
   position: fixed;
   width: 42px;
   height: 42px;
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   opacity: 0.7;
   font-size: 1.6rem;
   line-height: 1.5;
@@ -415,8 +426,8 @@ a:hover {
 .back-to-top {
   position: fixed;
   display: none;
-  background: var(--primary-color);
-  color: #fff;
+  background: var(--accent-color);
+  color: #000;
   width: 44px;
   height: 44px;
   text-align: center;
@@ -432,7 +443,7 @@ a:hover {
 
 .back-to-top i {
   padding-top: 12px;
-  color: #fff;
+  color: #000;
 }
 
 /* Prelaoder */
@@ -454,7 +465,7 @@ a:hover {
   top: calc(50% - 30px);
   left: calc(50% - 30px);
   border: 6px solid #f2f2f2;
-  border-top: 6px solid var(--primary-color);
+  border-top: 6px solid var(--accent-color);
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -583,18 +594,18 @@ span.u-nav-call-icon {
 
 
 .navbar-b.navbar-reduce .nav-link:before {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
 }
 
 .navbar-b.navbar-reduce .nav-link:hover {
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .navbar-b.navbar-reduce .show>.nav-link,
 .navbar-b.navbar-reduce .active>.nav-link,
 .navbar-b.navbar-reduce .nav-link.show,
 .navbar-b.navbar-reduce .nav-link.active {
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 
@@ -628,13 +639,13 @@ span.u-nav-call-icon {
 }
 
 .navbar-b .dropdown-menu .dropdown-item:hover {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   color: #fff;
   transition: all 500ms ease;
 }
 
 .navbar-b .dropdown-menu .dropdown-item.active {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
 }
 
 /*--/ Hamburger Navbar /--*/
@@ -748,7 +759,7 @@ span.u-nav-call-icon {
 
 .intro-single .breadcrumb {
   background-color: transparent;
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .intro-single .breadcrumb .breadcrumb-item:before {
@@ -790,7 +801,7 @@ span.w-date {
 .service-box:hover .ico-circle {
   transition: all 500ms ease;
   color: #fff;
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   box-shadow: 0 0 0 10px #cde1f8;
 }
 
@@ -843,11 +854,11 @@ span.w-date {
 }
 
 .work-content .w-more .w-ctegory {
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .work-content .w-like a {
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .work-content .w-like .num-like {
@@ -892,51 +903,45 @@ footer .credits a {
 //--//-->   BUTTON
 ======================================*/
 
-.button {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
+.u-button {
+  background-image: linear-gradient(135deg, var(--accent-color-dark), var(--accent-color));
+  border: none;
+  color: #000 !important;
+  border-radius: 8px;
+  padding: 12px;
+  text-transform: capitalize;
+  font-weight: 600;
   text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  font-size: 1rem;
-  border-radius: 0.3rem;
-  border: 1px solid transparent;
-  transition: all 500ms ease;
   cursor: pointer;
 }
 
-.button:focus {
+
+.u-button:focus {
   outline: 0;
 }
 
-.button:hover {
-  background-color: #0062d3;
-  color: #fff;
-  transition: all 500ms ease;
+
+.u-button:hover {
+  background-image: none;
+  background-color: #000;
+  transition: all 0.25s ease-in;
+  color: #fff !important;
 }
 
-.button-a {
-  background-color: var(--primary-color);
-  color: #fff;
-  border-color: #cde1f8;
+.u-outlined {
+  background-image: none;
+  border: 1px solid white;
+  color: white !important;
 }
 
-.button-big {
-  padding: 0.9rem 2.3rem;
-  font-size: 1.2rem;
-}
+.u-outlined:hover {
+  background-image: none;
+  background-color: white;
+  border: 1px solid transparent;
+  color: black !important;
+  letter-spacing: 1.2;
 
-.button-rouded {
-  border-radius: 5rem;
-}
 
-@media (min-width: 577px) {
-  .counter-box {
-    margin-bottom: 1.8rem;
-  }
 }
 
 @media (min-width: 767px) {
@@ -984,13 +989,13 @@ span.material-icons {
   position: relative;
   top: 6px;
   border-radius: 50% !important;
-  color: var(--primary-color) !important;
+  color: var(--accent-color) !important;
   opacity: 0.8;
   margin: 4px;
 }
 
 span.material-icons.rounded {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   color: rgb(62, 62, 62) !important;
 }
 
@@ -1023,12 +1028,33 @@ span.material-icons.rounded {
 /* Card Box */
 
 .u-card {
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2),
-    0 1px 8px 0 rgba(0, 0, 0, 0.12);
-  padding: 30px;
   margin: 24px 2px;
+  background-color: #11111188;
+}
+
+
+.u-card a {
+  color: #b5ffc6;
+}
+
+.u-card a:hover {
+  color: #00ff3c;
+}
+
+.u-padding-32 {
+  padding: 30px;
+}
+
+.u-border-radius {
   border-radius: 8px;
-  background-color: #111111;
+}
+
+.u-secondary-card-gradient {
+  background-image: linear-gradient(45deg, #1e352363, #4a49903d);
+}
+
+.u-secondary-card-gradient p {
+  font-size: 14px;
 }
 
 #u-contact .u-card a {
@@ -1120,7 +1146,7 @@ p.u-web-project-text {
 }
 
 .slick-arrow:before {
-  color: var(--primary-color) !important;
+  color: var(--accent-color) !important;
   font-size: 40px;
 }
 
@@ -1350,7 +1376,11 @@ img {
 /* End of Timeline CSS */
 
 
+.modal, .modal h5 {
+  color: #454545 !important;
+}
 
-#u-about {
+
+#u-home {
   padding-top: 124px;
 }
