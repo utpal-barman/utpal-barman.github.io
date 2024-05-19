@@ -4,10 +4,12 @@
   Author: Utpal Barman
 */
 
+
 :root {
   --accent-color: #43ffa4;
-  --brand-violet: #44324f;
-  --brand-blue: #221322;
+  --accent-color-dark: #479ea1; 
+  --brand-violet: #321d31;
+  --brand-blue: #1b0e4a;
   --brand-violet-light: #87498c;
   --brand-blue-light: #0c3475;
   --header-text: #f4f4f4;
@@ -17,7 +19,8 @@
 /* global styling */
 
 * {
-  font-family: 'Courier New', monospace;
+  font-family: Verdana, sans-serif;
+  
   margin: 0;
   padding: 0;
 }
@@ -39,7 +42,6 @@ h4,
 h5,
 h6,
 .u-header-span {
-  font-family: 'Courier New', monospace;
   color: var(--header-text);
 }
 
@@ -72,11 +74,6 @@ h3 {
   opacity: 100 !important;
 }
 
-.u-button-text {
-  font-family: 'Courier New', monospace;
-  text-transform: uppercase;
-  font-size: 14px;
-}
 
 .u-social {
   display: inline-block;
@@ -100,21 +97,7 @@ h3 {
   color: var(--accent-color);
 }
 
-.u-btn-brand {
-  color: #fff;
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  width: 100%;
-  padding: 15px;
-  text-align: center;
-  text-transform: uppercase;
-}
 
-.u-btn-brand:hover {
-  color: #fff !important;
-  background-color: var(--accent-color);
-  opacity: 0.9;
-}
 
 body {
   background-color: #000;
@@ -123,24 +106,66 @@ body {
 }
 
 body#u-body {
-  background: radial-gradient(var(--brand-violet), var(--brand-blue), #000);
+  background-size: 300% 300%;
+  animation: gradientAnimation 16ss ease infinite;
+  -webkit-animation: gradientAnimation 16s ease infinite;
+  -moz-animation: gradientAnimation 16ss ease infinite;
+  background-color: #101237;
+  background-image: radial-gradient(at 76% 40%, #20254c 0, transparent 50%), radial-gradient(at 55% 22%, #071a1d 0, transparent 50%), radial-gradient(at 59% 5%, #5f255d 0, transparent 50%), radial-gradient(at 79% 2%, #141e3e 0, transparent 50%), radial-gradient(at 24% 64%, #12373f 0, transparent 50%), radial-gradient(at 13% 82%, #311358 0, transparent 50%), radial-gradient(at 52% 55%, #67ff67 0, transparent 50%);
+}
+
+@-webkit-keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 a {
   color: #1e1e1e;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 a:hover {
   color: var(--accent-color);
   text-decoration: none;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
-.u-button-text,
-.u-button-text:hover {
-  color: white !important;
-}
+
 
 .u-center {
   display: block;
@@ -177,7 +202,7 @@ a:hover {
 
 .u-blue-circle {
   border: 10px solid #ebebf1;
-  transition: 0.5s;
+  transition: 0.25s;
   box-shadow: 0 0 20px 20px #00000026;
 }
 
@@ -194,14 +219,6 @@ a:hover {
   border-radius: 50%;
 }
 
-.u-button-gradient {
-  background-image: linear-gradient(135deg, var(--brand-violet-light), var(--brand-blue-light));
-  border: none;
-}
-
-.u-button-gradient:hover {
-  background-image: linear-gradient(45deg, #87498c, #0c3475);
-}
 
 .box-shadow,
 .paralax-mf,
@@ -211,10 +228,7 @@ a:hover {
   box-shadow: 0 13px 8px -10px rgba(0, 0, 0, 0.1);
 }
 
-.box-shadow-a,
-.button:hover {
-  box-shadow: 0 0 0 4px #cde1f8;
-}
+
 
 .bg-image {
   background-repeat: no-repeat;
@@ -228,7 +242,7 @@ a:hover {
 
 
 .progress-bar {
-  background-image: linear-gradient(90deg, #479ea1, var(--accent-color));
+  background-image: linear-gradient(90deg, var(--accent-color-dark), var(--accent-color));
 }
 
 .paralax-mf {
@@ -303,14 +317,14 @@ a:hover {
   line-height: 1.4;
   margin: 0 15px 0 0;
   box-shadow: 0 0 0 3px var(--accent-color);
-  transition: all 500ms ease;
+  transition: all 0.25s ease;
 }
 
 .socials .ico-circle:hover {
   background-color: var(--accent-color);
   color: #fff;
   box-shadow: 0 0 0 3px #cde1f8;
-  transition: all 500ms ease;
+  transition: all 0.25s ease;
 }
 
 /*------/ Ul resect /------*/
@@ -368,7 +382,7 @@ a:hover {
   background: #cde1f8;
   border: 0px solid #cde1f8;
   display: block;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.25s ease-in-out;
   cursor: pointer;
 }
 
@@ -889,51 +903,45 @@ footer .credits a {
 //--//-->   BUTTON
 ======================================*/
 
-.button {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
+.u-button {
+  background-image: linear-gradient(135deg, var(--accent-color-dark), var(--accent-color));
+  border: none;
+  color: #000 !important;
+  border-radius: 8px;
+  padding: 12px;
+  text-transform: capitalize;
+  font-weight: 600;
   text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  font-size: 1rem;
-  border-radius: 0.3rem;
-  border: 1px solid transparent;
-  transition: all 500ms ease;
   cursor: pointer;
 }
 
-.button:focus {
+
+.u-button:focus {
   outline: 0;
 }
 
-.button:hover {
-  background-color: #0062d3;
-  color: #fff;
-  transition: all 500ms ease;
+
+.u-button:hover {
+  background-image: none;
+  background-color: #000;
+  transition: all 0.25s ease-in;
+  color: #fff !important;
 }
 
-.button-a {
-  background-color: var(--accent-color);
-  color: #fff;
-  border-color: #cde1f8;
+.u-outlined {
+  background-image: none;
+  border: 1px solid white;
+  color: white !important;
 }
 
-.button-big {
-  padding: 0.9rem 2.3rem;
-  font-size: 1.2rem;
-}
+.u-outlined:hover {
+  background-image: none;
+  background-color: white;
+  border: 1px solid transparent;
+  color: black !important;
+  letter-spacing: 1.2;
 
-.button-rouded {
-  border-radius: 12rem;
-}
 
-@media (min-width: 577px) {
-  .counter-box {
-    margin-bottom: 1.8rem;
-  }
 }
 
 @media (min-width: 767px) {
@@ -1367,6 +1375,10 @@ img {
 
 /* End of Timeline CSS */
 
+
+.modal, .modal h5 {
+  color: #454545 !important;
+}
 
 
 #u-home {
