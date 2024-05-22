@@ -56,7 +56,7 @@ function appendProjectCard(name, link, description, i) {
             </div>
 
             <a target="_blank"
-                class="u-button px-3 py-2 text-uppercase"
+                class="u-button px-3 py-2"
                 href="${link}"
                 rel="noreferrer">
                 Project Details
