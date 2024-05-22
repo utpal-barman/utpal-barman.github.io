@@ -1,6 +1,6 @@
 /*
-  Utpal Barman's Info
   URL: https://utpal-barman.github.io
+  URL: utpals.com
   Author: Utpal Barman
 */
 
@@ -109,7 +109,7 @@ body#u-body {
   -webkit-animation: gradientAnimation 16s ease infinite;
   -moz-animation: gradientAnimation 16ss ease infinite;
   background-color: #101237;
-  background-image: radial-gradient(at 76% 40%, #3d3d3d 0, transparent 50%), radial-gradient(at 55% 22%, #03515d 0, transparent 50%), radial-gradient(at 59% 5%, #5f255d 0, transparent 50%), radial-gradient(at 79% 2%, #432165 0, transparent 50%), radial-gradient(at 24% 64%, #12373f 0, transparent 50%), radial-gradient(at 13% 82%, #311358 0, transparent 50%), radial-gradient(at 52% 55%, #67ff67 0, transparent 50%);
+  background-image: radial-gradient(at 76% 40%, #3d3d3d 0, transparent 50%), radial-gradient(at 55% 22%, #063e46 0, transparent 50%), radial-gradient(at 59% 5%, #5f255d 0, transparent 50%), radial-gradient(at 79% 2%, #432165 0, transparent 50%), radial-gradient(at 24% 64%, #12373f 0, transparent 50%), radial-gradient(at 13% 82%, #311358 0, transparent 50%), radial-gradient(at 52% 55%, #67ff67 0, transparent 50%);
 }
 
 @-webkit-keyframes gradientAnimation {
