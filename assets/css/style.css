@@ -111,7 +111,7 @@ body#u-body {
   -webkit-animation: gradientAnimation 16s ease infinite;
   -moz-animation: gradientAnimation 16ss ease infinite;
   background-color: #101237;
-  background-image: radial-gradient(at 76% 40%, #20254c 0, transparent 50%), radial-gradient(at 55% 22%, #071a1d 0, transparent 50%), radial-gradient(at 59% 5%, #5f255d 0, transparent 50%), radial-gradient(at 79% 2%, #141e3e 0, transparent 50%), radial-gradient(at 24% 64%, #12373f 0, transparent 50%), radial-gradient(at 13% 82%, #311358 0, transparent 50%), radial-gradient(at 52% 55%, #67ff67 0, transparent 50%);
+  background-image: radial-gradient(at 76% 40%, #3d3d3d 0, transparent 50%), radial-gradient(at 55% 22%, #03515d 0, transparent 50%), radial-gradient(at 59% 5%, #5f255d 0, transparent 50%), radial-gradient(at 79% 2%, #432165 0, transparent 50%), radial-gradient(at 24% 64%, #12373f 0, transparent 50%), radial-gradient(at 13% 82%, #311358 0, transparent 50%), radial-gradient(at 52% 55%, #67ff67 0, transparent 50%);
 }
 
 @-webkit-keyframes gradientAnimation {
@@ -777,6 +777,7 @@ span.u-nav-call-icon {
 .progress {
   border-radius: 30px;
   margin-bottom: 25px;
+  background-color: #35504f;
 }
 
 /*======================================
@@ -909,11 +910,14 @@ footer .credits a {
   color: #000 !important;
   border-radius: 8px;
   padding: 12px;
+  margin: 12px;
   text-transform: capitalize;
   font-weight: 600;
   text-align: center;
   cursor: pointer;
 }
+
+
 
 
 .u-button:focus {
@@ -924,8 +928,9 @@ footer .credits a {
 .u-button:hover {
   background-image: none;
   background-color: #000;
-  transition: all 0.25s ease-in;
+  transition: all 0.2s ease-in;
   color: #fff !important;
+  scale: 0.98;    
 }
 
 .u-outlined {
