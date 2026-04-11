@@ -110,3 +110,22 @@
 
   // utpal's js
 })(jQuery);
+
+// Scroll-reveal: trigger data-animate elements when they enter the viewport
+(function () {
+  'use strict';
+  var els = document.querySelectorAll('[data-animate]');
+  if (!els.length) return;
+  var io = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  els.forEach(function (el) { io.observe(el); });
+})();
