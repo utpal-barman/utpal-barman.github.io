@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://utpals.com/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://utpals.com/assets/img/utpal-barman-meta-image.png</image:loc>
+      <image:title>Utpal Barman — Lead Software Engineer, Flutter, Android and Agentic AI</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://utpals.com/assets/img/flutter-guild-day-2026.webp</image:loc>
+      <image:title>Utpal Barman speaking on agentic AI at Flutter Guild Day 2026</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://utpals.com/assets/img/monstarhacks-2024-winner.webp</image:loc>
+      <image:title>Team SportsBuddy, MonstarHacks 2024 winners</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://utpals.com/assets/img/create-value-award-2023.webp</image:loc>
+      <image:title>Create Value Award 2023, Monstarlab</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://utpals.com/tools/</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://utpals.com/tools/pdf/</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

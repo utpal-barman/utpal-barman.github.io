@@ -2,4 +2,12 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/utpal/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    # Explicit allowlist, for two reasons the old `cp -R * $DEPLOYPATH` got wrong:
+    #   1. a glob skips dotfiles, so .htaccess never reached the docroot and none
+    #      of its canonical-host, gzip, caching or security headers ever applied;
+    #   2. it published .idx/, .vscode/ and screenshot/ alongside the site.
+    # Anything new that must be served has to be added here deliberately.
+    - /bin/cp -R assets tools html-editor $DEPLOYPATH
+    - /bin/cp index.html robots.txt sitemap.xml .htaccess $DEPLOYPATH
+    # cp never deletes; remove paths that are no longer part of the site
+    - /bin/rm -rf /home/utpal/public_html/u
