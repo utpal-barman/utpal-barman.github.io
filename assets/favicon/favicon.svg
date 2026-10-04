@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="UB — Utpal Barman">
+  <rect width="32" height="32" rx="7.5" fill="#000000"/>
+  <g fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5.9 8.8 v7.7 a4.3 4.3 0 0 0 8.6 0 V8.8" stroke="#F5F3EE"/>
+    <g stroke="#3D7BFF">
+      <path d="M19 8.8 v14.4"/>
+      <path d="M19 8.8 h3.3 a3.6 3.6 0 0 1 0 7.2 H19"/>
+      <path d="M19 16 h4 a3.6 3.6 0 0 1 0 7.2 H19"/>
+    </g>
+  </g>
+</svg>

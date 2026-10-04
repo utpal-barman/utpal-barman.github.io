@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+
+  <title>Tools | utpals.com</title>
+  <meta name="description"
+    content="Small browser-only tools built by Utpal Barman. Nothing is uploaded — every file is read and written in the tab.">
+  <link rel="canonical" href="https://utpals.com/tools/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tools — utpals.com">
+  <meta property="og:description" content="Small browser-only tools. Nothing is uploaded.">
+  <meta property="og:url" content="https://utpals.com/tools/">
+  <meta property="og:image" content="https://utpals.com/assets/img/utpal-barman-meta-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/assets/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon/favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+  <!-- bump ?v= on every edit: .htaccess caches css/js immutable for a year -->
+  <link rel="stylesheet" href="pdf/app.css?v=2">
+  <style>
+    /* This page is a directory, not an instrument — two components only. */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+      gap: 1px;
+      margin-top: clamp(40px, 6vw, 64px);
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+
+    .card {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      padding: clamp(20px, 3vw, 28px);
+      background: var(--ink-1);
+      text-decoration: none;
+      color: inherit;
+      transition: background var(--t-hover) var(--ease);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--cobalt);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--t-reveal) var(--ease);
+    }
+
+    .card:hover,
+    .card:focus-visible { background: var(--ink-2); }
+    .card:hover::before,
+    .card:focus-visible::before { transform: scaleX(1); }
+
+    .card--soon { cursor: default; }
+    .card--soon:hover { background: var(--ink-1); }
+    .card--soon:hover::before { transform: scaleX(0); }
+
+    .card__n {
+      font-family: var(--mono);
+      font-size: var(--fs-mono);
+      letter-spacing: 0.06em;
+      color: var(--slate);
+    }
+
+    .card__t {
+      font-family: var(--display);
+      font-size: var(--fs-lg);
+      font-weight: 600;
+      font-stretch: 112%;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .card__d {
+      color: var(--bone-dim);
+      font-size: var(--fs-sm);
+    }
+
+    .card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .card__tags span {
+      font-family: var(--mono);
+      font-size: var(--fs-mono);
+      letter-spacing: 0.06em;
+      color: var(--slate);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 3px 10px;
+    }
+
+    .card__go {
+      font-family: var(--mono);
+      font-size: var(--fs-mono);
+      letter-spacing: 0.06em;
+      color: var(--cobalt);
+      margin-top: 6px;
+    }
+
+    .card--soon .card__go { color: var(--slate); }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to the tools</a>
+
+  <div class="grid-veil" aria-hidden="true"></div>
+
+  <header class="bar">
+    <a class="bar__back" href="/"><span aria-hidden="true">←</span> utpals.com</a>
+    <p class="bar__path"><span class="bar__here">tools</span></p>
+    <p class="bar__state" data-state="ready">
+      <span class="dot" aria-hidden="true"></span><span>Nothing is uploaded</span>
+    </p>
+  </header>
+
+  <main id="main">
+    <section class="intro">
+      <p class="eyebrow">tools/</p>
+      <h1>Small tools that run<br>in the tab, not on a server.</h1>
+      <p class="lede">
+        Things I needed and could not find a version of that was free, quiet and honest about what it
+        does with your files. Each one reads and writes locally — there is nothing to upload to and
+        nothing to sign up for.
+      </p>
+    </section>
+
+    <div class="cards">
+      <a class="card" href="pdf/">
+        <span class="card__n">01</span>
+        <span class="card__t">PDF tools</span>
+        <span class="card__d">Merge files, pull pages out, lay 2, 4 or 6 pages onto a sheet, and add
+          text or a signature to a page.</span>
+        <span class="card__tags"><span>Merge</span><span>Split</span><span>Collage</span><span>Sign</span></span>
+        <span class="card__go">Open →</span>
+      </a>
+
+      <a class="card" href="../html-editor/">
+        <span class="card__n">02</span>
+        <span class="card__t">HTML editor</span>
+        <span class="card__d">Type markup on the left, watch it render on the right. An older,
+          plainer thing that still earns its keep.</span>
+        <span class="card__tags"><span>Live preview</span></span>
+        <span class="card__go">Open →</span>
+      </a>
+
+      <div class="card card--soon">
+        <span class="card__n">03</span>
+        <span class="card__t">More to come</span>
+        <span class="card__d">Built when something annoys me twice.</span>
+        <span class="card__go">Not yet</span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <p>Part of <a href="/">utpals.com</a>. Built by Utpal Barman.</p>
+    <p class="foot__meta">No trackers, no accounts, no uploads.</p>
+  </footer>
+</body>
+
+</html>

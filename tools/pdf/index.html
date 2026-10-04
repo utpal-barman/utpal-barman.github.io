@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+
+  <title>PDF tools — merge, split, lay out, sign | utpals.com</title>
+  <meta name="description"
+    content="Merge, split, lay out 2/4/6 pages per sheet, add text and sign PDFs. Runs entirely in your browser — no upload, no account, no watermark.">
+  <link rel="canonical" href="https://utpals.com/tools/pdf/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PDF tools — merge, split, lay out, sign">
+  <meta property="og:description"
+    content="Four PDF tools that run in your browser. Nothing is uploaded.">
+  <meta property="og:url" content="https://utpals.com/tools/pdf/">
+  <meta property="og:image" content="https://utpals.com/assets/img/utpal-barman-meta-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/assets/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon/favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+  <!-- bump ?v= on every edit: .htaccess caches css/js immutable for a year -->
+  <link rel="stylesheet" href="app.css?v=2">
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to the tools</a>
+
+  <div class="grid-veil" aria-hidden="true"></div>
+
+  <header class="bar">
+    <a class="bar__back" href="/">
+      <span aria-hidden="true">←</span> utpals.com
+    </a>
+    <p class="bar__path"><span>tools</span><span class="bar__sep" aria-hidden="true">/</span><span
+        class="bar__here">pdf</span></p>
+    <p class="bar__state" id="engine">
+      <span class="dot" aria-hidden="true"></span><span id="engineLabel">Loading engine</span>
+    </p>
+  </header>
+
+  <main id="main">
+    <section class="intro">
+      <p class="eyebrow">pdf.tools</p>
+      <h1>Merge, split, lay out and sign a PDF.<br>All of it in this tab.</h1>
+      <p class="lede">
+        Four tools, no account, no watermark, no queue. Your files are read by this page and never
+        leave the machine you are sitting at — there is no server to send them to.
+      </p>
+      <ul class="facts">
+        <li><span class="facts__k">Runs</span><span class="facts__v">In your browser</span></li>
+        <li><span class="facts__k">Upload</span><span class="facts__v">None</span></li>
+        <li><span class="facts__k">Page cap</span><span class="facts__v">None</span></li>
+        <li><span class="facts__k">Cost</span><span class="facts__v">Free</span></li>
+      </ul>
+    </section>
+
+    <div class="tabs" role="tablist" aria-label="PDF tools">
+      <button class="tab" role="tab" id="tab-merge" aria-controls="panel-merge" aria-selected="true">
+        <span class="tab__n" aria-hidden="true">01</span>
+        <span class="tab__t">Merge</span>
+        <span class="tab__d">Many files, one PDF</span>
+      </button>
+      <button class="tab" role="tab" id="tab-split" aria-controls="panel-split" aria-selected="false" tabindex="-1">
+        <span class="tab__n" aria-hidden="true">02</span>
+        <span class="tab__t">Split</span>
+        <span class="tab__d">Pull pages out</span>
+      </button>
+      <button class="tab" role="tab" id="tab-collage" aria-controls="panel-collage" aria-selected="false"
+        tabindex="-1">
+        <span class="tab__n" aria-hidden="true">03</span>
+        <span class="tab__t">Collage</span>
+        <span class="tab__d">2, 4 or 6 per sheet</span>
+      </button>
+      <button class="tab" role="tab" id="tab-editor" aria-controls="panel-editor" aria-selected="false"
+        tabindex="-1">
+        <span class="tab__n" aria-hidden="true">04</span>
+        <span class="tab__t">Edit &amp; sign</span>
+        <span class="tab__d">Text, signature, cover-up</span>
+      </button>
+    </div>
+
+    <!-- ── 01 merge ──────────────────────────────────────────────────────── -->
+    <section class="panel" id="panel-merge" role="tabpanel" aria-labelledby="tab-merge">
+      <div class="drop" data-drop="merge">
+        <input type="file" id="mergeInput" accept="application/pdf,.pdf" multiple hidden>
+        <p class="drop__lead">Drop PDFs here</p>
+        <p class="drop__sub">or <label class="link" for="mergeInput" tabindex="0" role="button">choose files</label>
+          — two or more, in any order</p>
+      </div>
+
+      <div class="work" id="mergeWork" hidden>
+        <div class="work__head">
+          <h2>Files to join</h2>
+          <p class="readout" id="mergeReadout">—</p>
+        </div>
+        <p class="hint">Drag a row by its handle to reorder. Narrow the pages of any file with a range
+          like <code>1-3, 7</code>.</p>
+        <ol class="rows" id="mergeRows"></ol>
+        <div class="actions">
+          <label class="field field--name">
+            <span>File name</span>
+            <input type="text" id="mergeName" value="merged.pdf" spellcheck="false">
+          </label>
+          <button class="btn btn--primary" id="mergeGo">Merge and download</button>
+          <button class="btn" id="mergeAdd">Add more</button>
+          <button class="btn btn--quiet" id="mergeClear">Clear</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 02 split ──────────────────────────────────────────────────────── -->
+    <section class="panel" id="panel-split" role="tabpanel" aria-labelledby="tab-split" hidden>
+      <div class="drop" data-drop="split">
+        <input type="file" id="splitInput" accept="application/pdf,.pdf" hidden>
+        <p class="drop__lead">Drop one PDF here</p>
+        <p class="drop__sub">or <label class="link" for="splitInput" tabindex="0" role="button">choose a file</label>
+        </p>
+      </div>
+
+      <div class="work" id="splitWork" hidden>
+        <div class="work__head">
+          <h2 id="splitTitle">Pages</h2>
+          <p class="readout" id="splitReadout">—</p>
+        </div>
+
+        <div class="controls">
+          <label class="field">
+            <span>Pages</span>
+            <input type="text" id="splitRange" placeholder="1-3, 5, 9-" spellcheck="false">
+          </label>
+          <div class="chips" role="group" aria-label="Quick selection">
+            <button class="chip" data-select="all">All</button>
+            <button class="chip" data-select="odd">Odd</button>
+            <button class="chip" data-select="even">Even</button>
+            <button class="chip" data-select="none">None</button>
+          </div>
+        </div>
+
+        <fieldset class="radios">
+          <legend>Give me</legend>
+          <label><input type="radio" name="splitMode" value="one" checked><span>One PDF holding the selected
+              pages</span></label>
+          <label><input type="radio" name="splitMode" value="each"><span>A separate PDF for every selected
+              page</span></label>
+          <label><input type="radio" name="splitMode" value="ranges"><span>One PDF per range I typed
+              above</span></label>
+        </fieldset>
+
+        <div class="thumbs" id="splitThumbs" role="group" aria-label="Pages — click to select"></div>
+
+        <div class="actions">
+          <button class="btn btn--primary" id="splitGo">Split and download</button>
+          <button class="btn btn--quiet" id="splitClear">Use another file</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03 collage ────────────────────────────────────────────────────── -->
+    <section class="panel" id="panel-collage" role="tabpanel" aria-labelledby="tab-collage" hidden>
+      <div class="drop" data-drop="collage">
+        <input type="file" id="collageInput" accept="application/pdf,.pdf" multiple hidden>
+        <p class="drop__lead">Drop PDFs here</p>
+        <p class="drop__sub">or <label class="link" for="collageInput" tabindex="0" role="button">choose
+            files</label> — pages are laid out in the order given</p>
+      </div>
+
+      <div class="work" id="collageWork" hidden>
+        <div class="work__head">
+          <h2>Sheet layout</h2>
+          <p class="readout" id="collageReadout">—</p>
+        </div>
+
+        <div class="layout">
+          <div class="layout__controls">
+            <div class="control">
+              <span class="control__label">Pages per sheet</span>
+              <div class="chips chips--big" role="radiogroup" aria-label="Pages per sheet">
+                <button class="chip" data-per="2" role="radio" aria-checked="false">2</button>
+                <button class="chip is-on" data-per="4" role="radio" aria-checked="true">4</button>
+                <button class="chip" data-per="6" role="radio" aria-checked="false">6</button>
+              </div>
+            </div>
+
+            <label class="field">
+              <span>Sheet</span>
+              <select id="collageSheet">
+                <option value="a4" selected>A4</option>
+                <option value="letter">Letter</option>
+                <option value="legal">Legal</option>
+                <option value="a3">A3</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Orientation</span>
+              <select id="collageOrient">
+                <option value="auto" selected>Best fit</option>
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Margin <output id="collageMarginOut">24</output>pt</span>
+              <input type="range" id="collageMargin" min="0" max="72" step="4" value="24">
+            </label>
+
+            <label class="field">
+              <span>Gap <output id="collageGapOut">12</output>pt</span>
+              <input type="range" id="collageGap" min="0" max="48" step="4" value="12">
+            </label>
+
+            <label class="check">
+              <input type="checkbox" id="collageBorder"><span>Draw a hairline around every page</span>
+            </label>
+          </div>
+
+          <figure class="preview">
+            <canvas id="collagePreview" width="420" height="594"></canvas>
+            <figcaption id="collageCaption">Sheet 1</figcaption>
+          </figure>
+        </div>
+
+        <div class="actions">
+          <label class="field field--name">
+            <span>File name</span>
+            <input type="text" id="collageName" value="collage.pdf" spellcheck="false">
+          </label>
+          <button class="btn btn--primary" id="collageGo">Build and download</button>
+          <button class="btn" id="collageAdd">Add more</button>
+          <button class="btn btn--quiet" id="collageClear">Clear</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04 editor ─────────────────────────────────────────────────────── -->
+    <section class="panel" id="panel-editor" role="tabpanel" aria-labelledby="tab-editor" hidden>
+      <div class="drop" data-drop="editor">
+        <input type="file" id="editorInput" accept="application/pdf,.pdf" hidden>
+        <p class="drop__lead">Drop the PDF you want to sign</p>
+        <p class="drop__sub">or <label class="link" for="editorInput" tabindex="0" role="button">choose a
+            file</label></p>
+      </div>
+
+      <div class="work work--wide" id="editorWork" hidden>
+        <div class="tools" role="toolbar" aria-label="Editing tools">
+          <div class="tools__group" role="group" aria-label="Tool">
+            <button class="tool is-on" data-tool="select" aria-pressed="true">
+              <span class="tool__t">Select</span><kbd>V</kbd>
+            </button>
+            <button class="tool" data-tool="text" aria-pressed="false">
+              <span class="tool__t">Text</span><kbd>T</kbd>
+            </button>
+            <button class="tool" data-tool="sign" aria-pressed="false">
+              <span class="tool__t">Signature</span><kbd>S</kbd>
+            </button>
+            <button class="tool" data-tool="cover" aria-pressed="false">
+              <span class="tool__t">Cover</span><kbd>C</kbd>
+            </button>
+            <button class="tool" data-tool="retype" aria-pressed="false">
+              <span class="tool__t">Retype</span><kbd>R</kbd>
+            </button>
+            <button class="tool" data-tool="image" aria-pressed="false">
+              <span class="tool__t">Image</span><kbd>I</kbd>
+            </button>
+          </div>
+
+          <div class="tools__group tools__group--end">
+            <button class="tool tool--icon" id="edUndo" title="Undo (Ctrl+Z)" aria-label="Undo">Undo</button>
+            <button class="tool tool--icon" id="edZoomOut" aria-label="Zoom out">−</button>
+            <output class="tools__zoom" id="edZoom">100%</output>
+            <button class="tool tool--icon" id="edZoomIn" aria-label="Zoom in">+</button>
+          </div>
+        </div>
+
+        <p class="hint" id="edHint">Pick a tool, then click the page. Existing text can be covered and retyped —
+          that is what <em>Retype</em> does in one go.</p>
+
+        <div class="editor">
+          <div class="editor__stage" id="edStage" tabindex="-1"></div>
+
+          <aside class="inspect" id="edInspect" hidden aria-label="Selected item">
+            <p class="inspect__kind" id="edKind">Text</p>
+
+            <label class="field" data-for="text">
+              <span>Words</span>
+              <textarea id="edText" rows="3" spellcheck="false"></textarea>
+            </label>
+
+            <label class="field" data-for="text">
+              <span>Typeface</span>
+              <select id="edFont">
+                <option value="helvetica">Helvetica</option>
+                <option value="helvetica-bold">Helvetica Bold</option>
+                <option value="helvetica-oblique">Helvetica Italic</option>
+                <option value="times">Times</option>
+                <option value="times-bold">Times Bold</option>
+                <option value="times-italic">Times Italic</option>
+                <option value="courier">Courier</option>
+                <option value="courier-bold">Courier Bold</option>
+              </select>
+            </label>
+
+            <label class="field" data-for="text">
+              <span>Size <output id="edSizeOut">14</output>pt</span>
+              <input type="range" id="edSize" min="6" max="72" step="1" value="14">
+            </label>
+
+            <div class="field" data-for="text cover">
+              <span id="edColorLabel">Colour</span>
+              <div class="swatches" id="edSwatches" role="group" aria-label="Colour"></div>
+              <input type="color" id="edColor" value="#000000" aria-label="Custom colour">
+            </div>
+
+            <label class="field" data-for="cover image">
+              <span>Opacity <output id="edOpacityOut">100</output>%</span>
+              <input type="range" id="edOpacity" min="10" max="100" step="5" value="100">
+            </label>
+
+            <p class="inspect__pos" id="edPos">—</p>
+
+            <div class="inspect__acts">
+              <button class="btn btn--quiet" id="edDuplicate">Duplicate</button>
+              <button class="btn btn--danger" id="edDelete">Delete</button>
+            </div>
+          </aside>
+        </div>
+
+        <div class="actions actions--sticky">
+          <p class="readout" id="edReadout">—</p>
+          <label class="field field--name">
+            <span>File name</span>
+            <input type="text" id="edName" value="signed.pdf" spellcheck="false">
+          </label>
+          <button class="btn btn--primary" id="edGo">Apply and download</button>
+          <button class="btn btn--quiet" id="edClear">Use another file</button>
+        </div>
+      </div>
+    </section>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <section class="note">
+      <h2>What this can and cannot do</h2>
+      <dl>
+        <dt>Adding text, signatures and cover-ups</dt>
+        <dd>Fully supported, and the result is flattened into the page — it prints and archives like
+          any other PDF.</dd>
+        <dt>Changing text that is already in the file</dt>
+        <dd>A PDF stores placed glyphs, not editable paragraphs, so nothing can reflow it. <em>Retype</em>
+          does the honest version: it covers the old words and puts yours on top, which is what every
+          free editor is actually doing.</dd>
+        <dt>Scanned pages</dt>
+        <dd>A scan is one big image. You can sign it, cover parts of it and type on it, but there is no
+          text underneath to work with.</dd>
+        <dt>Password-protected files</dt>
+        <dd>Opened where the password only restricts permissions. A file that needs a password to
+          <em>read</em> has to be unlocked in your PDF reader first.</dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>A tool on <a href="/">utpals.com</a>. Built by Utpal Barman.</p>
+    <p class="foot__meta">Rendering by pdf.js, writing by pdf-lib. Nothing is uploaded, logged or
+      stored.</p>
+  </footer>
+
+  <!-- signature capture -->
+  <div class="sheet" id="signSheet" hidden>
+    <div class="sheet__box" role="dialog" aria-modal="true" aria-labelledby="signTitle">
+      <div class="sheet__head">
+        <h2 id="signTitle">Your signature</h2>
+        <button class="tool tool--icon" id="signClose" aria-label="Close">Close</button>
+      </div>
+
+      <div class="tools__group" role="group" aria-label="Signature source">
+        <button class="tool is-on" data-sign="draw" aria-pressed="true"><span class="tool__t">Draw</span></button>
+        <button class="tool" data-sign="type" aria-pressed="false"><span class="tool__t">Type</span></button>
+      </div>
+
+      <div class="sign" data-pane="draw">
+        <canvas id="signPad" width="960" height="320"></canvas>
+        <p class="hint">Sign with a mouse, a trackpad or a finger.</p>
+      </div>
+
+      <div class="sign" data-pane="type" hidden>
+        <label class="field">
+          <span>Name</span>
+          <input type="text" id="signName" placeholder="Utpal Barman" spellcheck="false">
+        </label>
+        <div class="sign__faces" id="signFaces" role="radiogroup" aria-label="Style"></div>
+      </div>
+
+      <div class="sheet__foot">
+        <label class="check"><input type="checkbox" id="signRemember" checked><span>Keep it in this browser for
+            next time</span></label>
+        <span class="sheet__gap"></span>
+        <button class="btn btn--quiet" id="signWipe">Clear</button>
+        <button class="btn btn--primary" id="signUse">Place it</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="imageInput" accept="image/png,image/jpeg" hidden>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"
+    integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
+    integrity="sha512-q+4liFwdPC/bNdhUpZx6aXDx/h77yEQtn4I1slHydcbZK34nLaR3cAeYSJshoxIOq3mjEf7xJE8YWIUHMn+oCQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="pdfops.js?v=2"></script>
+  <script src="app.js?v=2"></script>
+</body>
+
+</html>
