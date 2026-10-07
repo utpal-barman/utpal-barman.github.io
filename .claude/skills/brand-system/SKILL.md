@@ -67,11 +67,22 @@ links swell to 1.06 on press. The open mobile menu is a second, near-opaque pane
 same glass. These gradients and inset shadows are light effects on glass, not brand
 colour or elevation, and appear nowhere else.
 
-In Chromium, main.js adds real refraction: an SVG displacement filter used as the
-capsule's `backdrop-filter`, strongest at the rim and pointing inward, so the page bends
-at the edges like liquid on the screen, with a slight per-channel colour split. The map
-is rebuilt whenever the capsule changes size. Safari and Firefox keep the frosted
-version. The lens moves like liquid, never a spring: its leading edge flows to the new link first,
+Real refraction comes from **liquidGL** (naughtyduk/liquidGL v3, MIT, vendored at
+`assets/js/vendor/liquidGL.js` with its licence), added at Utpal's request in Oct 2026. It
+draws the capsule as WebGPU/WebGL glass: the page refracts through a bevelled rim with a
+slight colour split, a moving specular sheen and a viscous ripple under the pointer.
+main.js inserts an empty `.nav__glass` pane as its target (`content: false`), so the links
+stay ordinary DOM. The library's canvas sits inside `.nav` and is hidden until the bar has
+become the capsule. Once it is live, `.liquid` on `<html>` drops the capsule's CSS pane and
+keeps only the rim. The glass is clear, not frosted (`frost: 0`; any blur reads as grain): Utpal asked for
+"more glassy". A light dye (`--glass-dye`, multiplied into the refracted page) and a dark
+halo on the labels (`--glass-halo`, text-shadow, live glass only) keep nav text legible
+over the large headings beneath. Tuned by eye over the Expertise h2. The library works from a
+still snapshot of the page, so main.js forces `.reveal` blocks visible while it captures
+(`.glass-snap`, reset instantly via `.glass-settle`) and recaptures once lazy images
+load. It loads only after the page is idle and only where WebGPU or WebGL exists (not under
+Save-Data). Without it, the frosted CSS glass stays. Under reduced motion, specular and
+pointer ripple are off. The old hand-built SVG displacement filter is gone. The lens moves like liquid, never a spring: its leading edge flows to the new link first,
 the trailing edge follows, and it thins while stretched (`lens-flow`). No overshoot, no
 wobble (Utpal rejected the spring version). Skipped under reduced motion. Keep the tint (`--glass-liquid`) dense enough that the nav text stays
 legible over the large headings that pass beneath it.
@@ -227,9 +238,9 @@ may add a third, lead note: its agentic AI work, highlighted at Utpal's request)
 
 ## 7. Constraints
 
-- **Zero runtime dependencies.** No Bootstrap, jQuery, Slick, Lightbox,
-  FontAwesome, Ionicons. Vanilla JS, hand-written CSS. If a feature seems to need
-  a library, it is the wrong feature.
+- **One runtime dependency: liquidGL**, for the nav glass only (see 2), vendored and
+  loaded on idle. No Bootstrap, jQuery, Slick, Lightbox, FontAwesome, Ionicons. Vanilla
+  JS, hand-written CSS. Anything else that seems to need a library is the wrong feature.
 - Single stylesheet `assets/css/style.css`, single script `assets/js/main.js`. Both are
   numbered by section in page order (tokens, reset, primitives, nav, hero, each section,
   responsive, reduced motion, print); new rules go in their section, never appended at the end.
@@ -334,7 +345,9 @@ dependencies.
 
 - **No image over 60 KB**, and no animated GIF at all — one was removed for being
   380 KB with a white first frame. Projects are described in words, not code.
-- One CSS file, one JS file (about 27 KB and 12 KB, uncompressed). Bump the `?v=` query on
+- One CSS file, one JS file (about 27 KB and 13 KB, uncompressed), plus the vendored
+  liquidGL (290 KB raw, about 62 KB gzipped). It is fetched after `load` when the browser
+  is idle, so it never blocks first paint. Bump its `?v=` (in main.js) when upgrading it. Bump the `?v=` query on
   both in `index.html` on every edit: `.htaccess` caches them immutable for a year. System fonts only: no
   font files, no font CDN, no `assets/fonts/` (the `/tools/pdf` page uses the same stack).
 - `loading="lazy"` below the fold.

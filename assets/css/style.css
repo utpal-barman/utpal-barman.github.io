@@ -70,6 +70,12 @@
   --glass-lens: rgba(255, 255, 255, 0.1);
   --glass-spec: rgba(255, 255, 255, 0.16);
   --glass-liquid: rgba(10, 10, 12, 0.56);
+  /* liquidGL dye: the refracted page is multiplied toward this. The glass is
+     clear, so the dye stays light and the labels carry a dark halo instead,
+     the way system glass keeps its text legible over bright content. */
+  --glass-dye: rgba(8, 8, 10, 0.63);
+  --glass-dye-menu: rgba(8, 8, 10, 0.78);
+  --glass-halo: rgba(0, 0, 0, 0.85);
   --glass-blur: blur(16px) saturate(200%) brightness(1.1);
 
   color-scheme: dark;
@@ -259,6 +265,12 @@ strong { color: var(--bone); font-weight: 600; }
 
 .reveal.is-revealed { opacity: 1; transform: none; }
 
+/* while liquidGL photographs the page, sections still waiting to reveal are
+   drawn as they will be read (main.js sets this for the capture only) */
+.glass-snap .reveal { opacity: 1; transform: none; }
+.glass-snap .reveal,
+.glass-settle .reveal { transition: none; }
+
 .hero .reveal { transition-delay: calc(var(--i, 0) * 70ms); }
 
 /* --- 4. nav -------------------------------------------------------------- */
@@ -340,12 +352,39 @@ strong { color: var(--bone); font-weight: 600; }
 .nav[data-scrolled='true'] .nav__inner::before,
 .nav[data-scrolled='true'] .nav__inner::after { opacity: 1; }
 
-/* Chromium: the real thing. The page bends at the rim (SVG displacement built
-   by main.js), with only a whisper of blur so the bending stays visible. */
+/* The real thing, where liquidGL is running (main.js adds .liquid): its canvas
+   draws the refracting glass under the capsule, so the capsule itself drops its
+   CSS pane and keeps only the rim and glow. .nav__glass is the empty shape the
+   library reads; the canvas only shows once the bar has become the capsule. */
+.nav__glass {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.nav > canvas { transition: opacity var(--t-reveal) var(--ease); }
+.nav:not([data-scrolled='true']):not([data-menu='open']) > canvas { opacity: 0 !important; }
+
+/* the open mobile menu's lens (main.js fits it over the menu); at the top of
+   the page the menu is glass but the bar is not, so the capsule lens stands down */
+.nav__menu-glass {
+  position: absolute;
+  display: none;
+  border-radius: 24px;
+  pointer-events: none;
+}
+
 .liquid .nav[data-scrolled='true'] .nav__inner {
-  background: var(--glass-liquid);
-  -webkit-backdrop-filter: url(#liquid-glass) blur(4px) saturate(190%) brightness(1.08);
-  backdrop-filter: url(#liquid-glass) blur(4px) saturate(190%) brightness(1.08);
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.liquid .nav[data-scrolled='true'] .nav__brand,
+.liquid .nav[data-scrolled='true'] .nav__link,
+.liquid .nav[data-menu='open'] .nav__link {
+  text-shadow: 0 0 2px var(--glass-halo), 0 0 8px var(--glass-halo), 0 0 16px var(--glass-halo);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -965,6 +1004,16 @@ strong { color: var(--bone); font-weight: 600; }
 
   .nav__links::before { opacity: 1; }
   .nav__links[hidden] { display: none; }
+
+  /* with liquidGL live, the menu's lens draws the glass; keep only rim and glow */
+  .nav[data-menu='open'] .nav__menu-glass { display: block; }
+  .nav:not([data-scrolled='true'])[data-menu='open'] .nav__glass { display: none; }
+
+  .liquid .nav__links {
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 
   .nav__link { padding: 14px 16px; border-radius: 16px; }
   .nav__link[aria-current='true'] { background: var(--glass-lens); }
