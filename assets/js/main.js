@@ -1,6 +1,6 @@
 /* ==========================================================================
    utpals.com — "trace"
-   Vanilla. No dependencies. Spec: .claude/skills/brand-system/SKILL.md
+   Vanilla. One vendored library, liquidGL, loaded on idle. Spec: .claude/skills/brand-system/SKILL.md
 
    1 setup               5 lens
    2 nav and menu        6 scroll spy
@@ -27,14 +27,17 @@
 
   function closeMenu() {
     links.hidden = true;
+    nav.setAttribute('data-menu', 'closed');
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-label', 'Open menu');
   }
 
   function openMenu() {
     links.hidden = false;
+    nav.setAttribute('data-menu', 'open');
     toggle.setAttribute('aria-expanded', 'true');
     toggle.setAttribute('aria-label', 'Close menu');
+    fitMenuGlass();
   }
 
   if (mobile.matches) closeMenu();
@@ -50,7 +53,10 @@
 
   mobile.addEventListener('change', function (e) {
     if (e.matches) closeMenu();
-    else links.hidden = false;
+    else {
+      links.hidden = false;
+      nav.setAttribute('data-menu', 'closed');
+    }
   });
 
   document.addEventListener('keydown', function (e) {
@@ -96,102 +102,157 @@
     });
   }
 
-  /* Chromium can run an SVG filter as a backdrop-filter, so there the capsule
-     really bends the page behind it: a displacement map, strongest at the rim
-     and pointing inward, makes content curve at the edges like a drop of
-     liquid on the screen, with a slight colour split. Other browsers keep the
-     frosted glass from the CSS. The map is rebuilt whenever the capsule's size
-     changes. */
-  var liquidOK =
-    !!(navigator.userAgentData && navigator.userAgentData.brands) &&
-    navigator.userAgentData.brands.some(function (b) { return /Chromium/.test(b.brand); });
+  /* Real liquid glass from liquidGL (naughtyduk/liquidGL, MIT, vendored in
+     assets/js/vendor): the capsule refracts the page through a bevelled rim
+     with a moving specular sheen, rendered in WebGPU or WebGL. It draws into a
+     canvas inside the nav and hides its target, so the target is an empty pane
+     behind the links, which stay ordinary DOM. The library rasterises the page
+     into a texture, so it loads only once the page is idle and only where a GPU
+     context exists; everywhere else the frosted glass from the CSS stays. */
+  var root = document.documentElement;
+  var pane = document.createElement('span');
+  pane.className = 'nav__glass';
+  pane.setAttribute('aria-hidden', 'true');
+  navInner.insertBefore(pane, navInner.firstChild);
 
-  var SVGNS = 'http://www.w3.org/2000/svg';
-  var liquidSvg, liquidKey = '';
+  /* The open mobile menu is a second lens on the same canvas. Its pane sits
+     directly under .nav, so both lenses share one renderer and one snapshot,
+     and main.js lays it over the menu each time the menu opens. */
+  var menuPane = document.createElement('span');
+  menuPane.className = 'nav__menu-glass';
+  menuPane.setAttribute('aria-hidden', 'true');
+  nav.appendChild(menuPane);
 
-  function displacementMap(w, h) {
-    var c = document.createElement('canvas');
-    c.width = w;
-    c.height = h;
-    var ctx = c.getContext('2d');
-    var img = ctx.createImageData(w, h);
-    var r = h / 2;
-    var zone = Math.min(22, r);
-    for (var y = 0; y < h; y++) {
-      for (var x = 0; x < w; x++) {
-        var cx = Math.min(Math.max(x + 0.5, r), w - r);
-        var dx = x + 0.5 - cx;
-        var dy = y + 0.5 - r;
-        var dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        var inside = r - dist;
-        var nx = 0, ny = 0;
-        if (inside > 0 && inside < zone) {
-          var k = 1 - inside / zone;
-          var mag = k * k * k;
-          nx = -(dx / dist) * mag;
-          ny = -(dy / dist) * mag;
+  function fitMenuGlass() {
+    if (!menuPane || links.hidden) return;
+    var box = links.getBoundingClientRect();
+    menuPane.style.top = box.top + 'px';
+    menuPane.style.left = box.left + 'px';
+    menuPane.style.width = box.width + 'px';
+    menuPane.style.height = box.height + 'px';
+  }
+  window.addEventListener('resize', fitMenuGlass, { passive: true });
+
+  function hasGPU() {
+    if ('gpu' in navigator) return true;
+    try {
+      var c = document.createElement('canvas');
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /* The texture is a still of the page, so it must show the page as it will
+     be read: sections waiting to reveal are drawn visible for the capture,
+     then drop back to hidden at once rather than fading out. */
+  function beginSnap() { root.classList.add('glass-snap'); }
+
+  function endSnap() {
+    if (!root.classList.contains('glass-snap')) return;
+    root.classList.add('glass-settle');
+    root.classList.remove('glass-snap');
+    void root.offsetWidth;
+    root.classList.remove('glass-settle');
+  }
+
+  function snapshotRevealed(renderer) {
+    var capture = renderer.captureSnapshot.bind(renderer);
+    renderer.captureSnapshot = function () {
+      beginSnap();
+      return Promise.resolve(capture()).then(function (ok) {
+        endSnap();
+        return ok;
+      });
+    };
+  }
+
+  /* lazy images arrive after the capture; take a fresh one once they land */
+  function recaptureOnImages(renderer) {
+    var timer;
+    function recapture() {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        if (renderer._capturing) return recapture();
+        renderer.captureSnapshot();
+      }, 400);
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('img[loading="lazy"]'), function (img) {
+      if (!img.complete) img.addEventListener('load', recapture, { once: true });
+    });
+  }
+
+  function startGlass() {
+    if (typeof window.liquidGL !== 'function') return;
+    beginSnap();
+    var glass = window.liquidGL({
+      target: '.nav__glass',
+      content: false,
+      resolution: Math.min(2, window.devicePixelRatio || 1),
+      refraction: 0.008,
+      aberration: 0.2,
+      bevelDepth: 0.085,
+      bevelWidth: 0.24,
+      frost: 0,
+      shadow: false,
+      specular: !reduced,
+      reveal: 'none',
+      interaction: reduced ? 'none' : 'fluid',
+      interactionStrength: 0.35,
+      interactionRadius: 0.6,
+      interactionViscosity: 0.7,
+      tint: getComputedStyle(root).getPropertyValue('--glass-dye').trim(),
+      on: {
+        init: function (lens) {
+          endSnap();
+          if (!lens.renderer) return;
+          snapshotRevealed(lens.renderer);
+          recaptureOnImages(lens.renderer);
+          /* the capsule animates its size; settle the lens on the final box */
+          navInner.addEventListener('transitionend', function () {
+            lens.updateMetrics();
+            lens.renderer.render();
+          });
+          root.classList.add('liquid');
         }
-        var i = (y * w + x) * 4;
-        img.data[i] = 128 + nx * 127;
-        img.data[i + 1] = 128 + ny * 127;
-        img.data[i + 2] = 128;
-        img.data[i + 3] = 255;
       }
-    }
-    ctx.putImageData(img, 0, 0);
-    return c.toDataURL();
+    });
+    /* the menu is a tall pane of busy rows: a narrow rim and a denser dye */
+    window.liquidGL({
+      target: '.nav__menu-glass',
+      content: false,
+      resolution: Math.min(2, window.devicePixelRatio || 1),
+      refraction: 0.008,
+      aberration: 0.15,
+      bevelDepth: 0.06,
+      bevelWidth: 0.08,
+      frost: 0,
+      shadow: false,
+      specular: !reduced,
+      reveal: 'none',
+      interaction: reduced ? 'none' : 'fluid',
+      interactionStrength: 0.3,
+      interactionRadius: 0.35,
+      interactionViscosity: 0.7,
+      tint: getComputedStyle(root).getPropertyValue('--glass-dye-menu').trim()
+    });
+    if (!glass || !glass.renderer) endSnap();
+    /* if the GPU backend fails quietly, init never fires: end the capture anyway */
+    setTimeout(endSnap, 4000);
   }
 
-  function el(name, attrs) {
-    var n = document.createElementNS(SVGNS, name);
-    for (var a in attrs) n.setAttribute(a, attrs[a]);
-    return n;
+  function loadGlass() {
+    var s = document.createElement('script');
+    s.src = './assets/js/vendor/liquidGL.js?v=3.0.0';
+    s.onload = startGlass;
+    document.head.appendChild(s);
   }
 
-  function buildLiquid() {
-    if (!liquidOK || nav.getAttribute('data-scrolled') !== 'true') return;
-    var w = Math.round(navInner.offsetWidth);
-    var h = Math.round(navInner.offsetHeight);
-    if (!w || !h || w + 'x' + h === liquidKey) return;
-    liquidKey = w + 'x' + h;
-
-    var filter = el('filter', {
-      id: 'liquid-glass',
-      x: 0, y: 0, width: w, height: h,
-      filterUnits: 'userSpaceOnUse',
-      'color-interpolation-filters': 'sRGB'
-    });
-    filter.appendChild(el('feImage', { href: displacementMap(w, h), x: 0, y: 0, width: w, height: h, result: 'map' }));
-    /* one displacement per channel, each a little stronger: the colour fringe */
-    [['R', 44, '1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'],
-     ['G', 40, '0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0'],
-     ['B', 36, '0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0']].forEach(function (ch) {
-      filter.appendChild(el('feDisplacementMap', {
-        in: 'SourceGraphic', in2: 'map', scale: ch[1],
-        xChannelSelector: 'R', yChannelSelector: 'G', result: 'd' + ch[0]
-      }));
-      filter.appendChild(el('feColorMatrix', { in: 'd' + ch[0], type: 'matrix', values: ch[2], result: 'c' + ch[0] }));
-    });
-    filter.appendChild(el('feBlend', { in: 'cR', in2: 'cG', mode: 'screen', result: 'rg' }));
-    filter.appendChild(el('feBlend', { in: 'rg', in2: 'cB', mode: 'screen' }));
-
-    if (!liquidSvg) {
-      liquidSvg = el('svg', { width: 0, height: 0, 'aria-hidden': 'true', focusable: 'false' });
-      liquidSvg.style.position = 'absolute';
-      document.body.appendChild(liquidSvg);
-    }
-    liquidSvg.replaceChildren(filter);
-    document.documentElement.classList.add('liquid');
-  }
-
-  if (liquidOK) {
-    /* the capsule animates its size for --t-reveal; build once it settles */
-    navInner.addEventListener('transitionend', function (e) {
-      if (e.propertyName === 'max-width' || e.propertyName === 'height') buildLiquid();
-    });
-    window.addEventListener('scroll', buildLiquid, { passive: true });
-    window.addEventListener('resize', buildLiquid, { passive: true });
-    buildLiquid();
+  if (hasGPU() && !(navigator.connection && navigator.connection.saveData)) {
+    var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 200); };
+    var whenIdle = function () { idle(loadGlass, { timeout: 3000 }); };
+    if (document.readyState === 'complete') whenIdle();
+    else window.addEventListener('load', whenIdle, { once: true });
   }
 
   /* --- 5. lens ------------------------------------------------------------ */
