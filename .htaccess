@@ -27,6 +27,9 @@
 # a directory request serves its index
 DirectoryIndex index.html
 
+# the custom not-found page (GitHub Pages serves the same file from the root)
+ErrorDocument 404 /404.html
+
 # compress text assets
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
