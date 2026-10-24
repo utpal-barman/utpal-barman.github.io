@@ -13,6 +13,7 @@ There is no build step.
 
 ```text
 index.html                 the whole page
+404.html                   the custom not-found page (cPanel and GitHub Pages)
 assets/css/style.css       the single stylesheet; every design token lives in :root
 assets/js/main.js          nav and liquid-glass capsule, scroll reveal, live role duration
 assets/img/                WebP photos and logos, each under 60 KB

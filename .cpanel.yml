@@ -8,6 +8,6 @@ deployment:
     #   2. it published .idx/, .vscode/ and screenshot/ alongside the site.
     # Anything new that must be served has to be added here deliberately.
     - /bin/cp -R assets tools html-editor $DEPLOYPATH
-    - /bin/cp index.html robots.txt sitemap.xml .htaccess $DEPLOYPATH
+    - /bin/cp index.html 404.html robots.txt sitemap.xml .htaccess $DEPLOYPATH
     # cp never deletes; remove paths that are no longer part of the site
     - /bin/rm -rf /home/utpal/public_html/u
