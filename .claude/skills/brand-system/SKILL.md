@@ -80,8 +80,10 @@ halo on the labels (`--glass-halo`, text-shadow, live glass only) keep nav text 
 over the large headings beneath. Tuned by eye over the Expertise h2. The library works from a
 still snapshot of the page, so main.js forces `.reveal` blocks visible while it captures
 (`.glass-snap`, reset instantly via `.glass-settle`) and recaptures once lazy images
-load. It loads only after the page is idle and only where WebGPU or WebGL exists (not under
-Save-Data). Without it, the frosted CSS glass stays. Under reduced motion, specular and
+load. It loads only after the page is idle, only where WebGPU or WebGL exists (not under
+Save-Data), and only for `(hover: hover) and (pointer: fine)` — phones and tablets keep
+the CSS glass, because the lens costs memory and main-thread time for a desktop flourish.
+Without it, the frosted CSS glass stays. Under reduced motion, specular and
 pointer ripple are off. The old hand-built SVG displacement filter is gone. The lens moves like liquid, never a spring: its leading edge flows to the new link first,
 the trailing edge follows, and it thins while stretched (`lens-flow`). No overshoot, no
 wobble (Utpal rejected the spring version). Skipped under reduced motion. Keep the tint (`--glass-liquid`) dense enough that the nav text stays
@@ -135,6 +137,9 @@ Borders: `1px solid var(--rule)`. Never 2px, never dashed.
 - Nav: the name in the bar fades in only once the hero h1 has scrolled out of view
   (`data-brand` on `.nav`, gated on `.js` so it shows without the script), and the bar
   morphs into the glass capsule once the page scrolls.
+- `.js` is set by a one-line script in the head, before first paint, so the reveals and
+  the brand never flash hidden-then-visible. Everything gated on it must stay readable
+  when it is absent: without JS the page shows all of its content.
 - Photos and the employer logo are monochrome at rest and take their own colour on hover,
   the same treatment as the avatar.
 - Easing: `cubic-bezier(.22,.61,.36,1)`. Durations 180ms (hover) / 420ms (reveal).
@@ -250,6 +255,12 @@ may add a third, lead note: its agentic AI work, highlighted at Utpal's request)
   reachable everything, `prefers-reduced-motion` honoured.
 - Mobile floor: 360px wide with no horizontal scroll. Experience rows stack below 760px;
   award rows stack below 860px with the photo capped at 360px wide.
+- Touch and no-JS floors: every control is at least 44×44 (menu button and nav rows
+  included), the open menu scrolls inside itself on short or landscape viewports and
+  locks the page behind it, and without JS the menu is not rendered at all — the bar
+  keeps the brand — because a menu that cannot open or close is worse than none.
+- Award photos open in a native `<dialog>` over the page (Escape and the returning focus
+  come with the element); modified clicks and no-JS visitors still get the image file.
 
 ## 8. Facts on file
 

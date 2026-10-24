@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- tell the stylesheets JS is on before first paint: the reveal and the
+         nav brand stay visible without it, never half-hidden -->
+    <script>document.documentElement.classList.add('js');</script>
 
     <title>Utpal Barman — Lead Software Engineer, Mobile (iOS &amp; Android) · Agentic AI</title>
     <meta name="description" content="Utpal Barman is a lead mobile engineer in Dhaka with nearly 8 years building native and cross-platform apps for iOS and Android (Flutter, React Native, Kotlin), who runs his engineering work on agentic AI." />
@@ -56,7 +59,7 @@
 
     <!-- bump ?v= on every edit: .htaccess caches css/js immutable for a year, so
          returning visitors keep the old file until this number changes -->
-    <link rel="stylesheet" href="./assets/css/style.css?v=33" />
+    <link rel="stylesheet" href="./assets/css/style.css?v=34" />
   </head>
 
   <body>
@@ -616,6 +619,15 @@
       </section>
     </main>
 
+    <!-- award photos open here, over the page, instead of a raw file in a new tab -->
+    <dialog class="zoom" id="zoom" aria-label="Award photo">
+      <img class="zoom__img" alt="" />
+      <div class="zoom__bar">
+        <p class="zoom__cap"></p>
+        <button class="zoom__close" type="button">Close</button>
+      </div>
+    </dialog>
+
     <footer class="footer">
       <div class="container footer__inner">
         <span>© <span id="year">2026</span> Utpal Barman</span>
@@ -791,6 +803,6 @@
       }
     </script>
 
-    <script src="./assets/js/main.js?v=30" defer></script>
+    <script src="./assets/js/main.js?v=31" defer></script>
   </body>
 </html>

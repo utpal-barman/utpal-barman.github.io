@@ -6,6 +6,7 @@
    2 nav and menu        6 scroll spy
    3 scroll state        7 reveal
    4 liquid glass        8 live duration
+                          9 award photos
    ========================================================================== */
 
 (function () {
@@ -14,6 +15,7 @@
   /* --- 1. setup ----------------------------------------------------------- */
 
   document.documentElement.classList.add('js');
+  var root = document.documentElement;
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var mobile = window.matchMedia('(max-width: 860px)');
@@ -30,6 +32,7 @@
     nav.setAttribute('data-menu', 'closed');
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-label', 'Open menu');
+    root.classList.remove('menu-lock');
   }
 
   function openMenu() {
@@ -37,6 +40,7 @@
     nav.setAttribute('data-menu', 'open');
     toggle.setAttribute('aria-expanded', 'true');
     toggle.setAttribute('aria-label', 'Close menu');
+    root.classList.add('menu-lock');
     fitMenuGlass();
   }
 
@@ -52,11 +56,14 @@
   });
 
   mobile.addEventListener('change', function (e) {
-    if (e.matches) closeMenu();
-    else {
-      links.hidden = false;
-      nav.setAttribute('data-menu', 'closed');
-    }
+    closeMenu();
+    if (!e.matches) links.hidden = false;
+  });
+
+  /* a tap anywhere outside the nav dismisses the open menu */
+  document.addEventListener('pointerdown', function (e) {
+    if (toggle.getAttribute('aria-expanded') !== 'true') return;
+    if (!e.target.closest('#nav')) closeMenu();
   });
 
   document.addEventListener('keydown', function (e) {
@@ -91,7 +98,6 @@
   /* --- 4. liquid glass ---------------------------------------------------- */
 
   /* the specular highlight tracks the pointer across the glass */
-  var navInner = nav.querySelector('.nav__inner');
   if (!reduced && window.matchMedia('(hover: hover)').matches) {
     navInner.addEventListener('pointermove', function (e) {
       var box = navInner.getBoundingClientRect();
@@ -109,7 +115,6 @@
      behind the links, which stay ordinary DOM. The library rasterises the page
      into a texture, so it loads only once the page is idle and only where a GPU
      context exists; everywhere else the frosted glass from the CSS stays. */
-  var root = document.documentElement;
   var pane = document.createElement('span');
   pane.className = 'nav__glass';
   pane.setAttribute('aria-hidden', 'true');
@@ -248,7 +253,11 @@
     document.head.appendChild(s);
   }
 
-  if (hasGPU() && !(navigator.connection && navigator.connection.saveData)) {
+  /* A phone pays for the glass in memory and main-thread time, and the CSS
+     capsule already looks the part there: the GPU lens is for mouse-class
+     pointers only. */
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (finePointer && hasGPU() && !(navigator.connection && navigator.connection.saveData)) {
     var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 200); };
     var whenIdle = function () { idle(loadGlass, { timeout: 3000 }); };
     if (document.readyState === 'complete') whenIdle();
@@ -269,7 +278,7 @@
   var lensLeft = null;
 
   function placeLens() {
-    var current = links.querySelector('.nav__link[aria-current="true"]');
+    var current = links.querySelector('.nav__link[aria-current]');
     if (!current || mobile.matches) {
       lens.removeAttribute('data-on');
       return;
@@ -318,7 +327,7 @@
           if (!entry.isIntersecting) return;
           navLinks.forEach(function (a) {
             var on = a.getAttribute('href') === '#' + entry.target.id;
-            if (on) a.setAttribute('aria-current', 'true');
+            if (on) a.setAttribute('aria-current', 'location');
             else a.removeAttribute('aria-current');
           });
           placeLens();
@@ -383,5 +392,41 @@
 
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(NOW.getFullYear());
+
+  /* --- 9. award photos ---------------------------------------------------- */
+  /* A plain click opens the photo in a native dialog. Modified clicks (open in
+     a new tab, save) and visitors without JS keep the plain link to the file. */
+
+  var zoom = document.getElementById('zoom');
+  if (zoom && typeof zoom.showModal === 'function') {
+    var zoomImg = zoom.querySelector('.zoom__img');
+    var zoomCap = zoom.querySelector('.zoom__cap');
+    var zoomClose = zoom.querySelector('.zoom__close');
+
+    Array.prototype.forEach.call(document.querySelectorAll('.award__fig'), function (fig) {
+      fig.addEventListener('click', function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        var img = fig.querySelector('img');
+        var row = fig.closest('.award__row');
+        var name = row && row.querySelector('.award__n');
+        if (!img) return;
+        e.preventDefault();
+        zoomImg.src = img.currentSrc || img.src;
+        zoomImg.alt = img.alt;
+        zoomCap.textContent = name ? name.textContent : '';
+        zoom.showModal();
+      });
+    });
+
+    zoomClose.addEventListener('click', function () { zoom.close(); });
+
+    /* a click on the backdrop lands on the dialog element itself */
+    zoom.addEventListener('click', function (e) { if (e.target === zoom) zoom.close(); });
+
+    zoom.addEventListener('close', function () {
+      zoomImg.removeAttribute('src');
+      zoomImg.alt = '';
+    });
+  }
 
 })();
