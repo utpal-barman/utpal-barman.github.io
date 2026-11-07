@@ -7,6 +7,7 @@
    3 scroll state        7 reveal
    4 liquid glass        8 live duration
                           9 award photos
+                         10 resume download
    ========================================================================== */
 
 (function () {
@@ -96,17 +97,6 @@
   }
 
   /* --- 4. liquid glass ---------------------------------------------------- */
-
-  /* the specular highlight tracks the pointer across the glass */
-  if (!reduced && window.matchMedia('(hover: hover)').matches) {
-    navInner.addEventListener('pointermove', function (e) {
-      var box = navInner.getBoundingClientRect();
-      navInner.style.setProperty('--mx', e.clientX - box.left + 'px');
-    });
-    navInner.addEventListener('pointerleave', function () {
-      navInner.style.removeProperty('--mx');
-    });
-  }
 
   /* Real liquid glass from liquidGL (naughtyduk/liquidGL, MIT, vendored in
      assets/js/vendor): the capsule refracts the page through a bevelled rim
@@ -255,9 +245,10 @@
 
   /* A phone pays for the glass in memory and main-thread time, and the CSS
      capsule already looks the part there: the GPU lens is for mouse-class
-     pointers only. */
+     pointers only. Under Reduce Transparency the CSS turns the glass solid. */
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (finePointer && hasGPU() && !(navigator.connection && navigator.connection.saveData)) {
+  var clear = !window.matchMedia('(prefers-reduced-transparency: reduce)').matches;
+  if (clear && finePointer && hasGPU() && !(navigator.connection && navigator.connection.saveData)) {
     var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 200); };
     var whenIdle = function () { idle(loadGlass, { timeout: 3000 }); };
     if (document.readyState === 'complete') whenIdle();
@@ -428,5 +419,81 @@
       zoomImg.alt = '';
     });
   }
+
+  /* --- 9. resume download ------------------------------------------------- */
+  /* The resume saves to the browser's downloads rather than opening a tab.
+     The control shows a spinner for at least 1.5s while the file is fetched,
+     so the press always reads as "working", then a brief "Downloaded". It
+     falls back to the plain link (which carries a download attribute) for
+     modified clicks or if the fetch fails. */
+
+  var MIN_SPIN = 1500;
+  var live = document.getElementById('liveStatus');
+
+  function announce(text) {
+    if (!live) return;
+    live.textContent = '';
+    setTimeout(function () { live.textContent = text; }, 50);
+  }
+
+  function saveBlob(blob, name) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.hidden = true;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-download]'), function (link) {
+    var label = link.querySelector('.btn__label');
+    var idle = label ? label.textContent : '';
+
+    function setState(state, text) {
+      link.setAttribute('data-state', state);
+      if (label) label.textContent = text;
+    }
+
+    link.addEventListener('click', function (e) {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (!window.fetch || !window.Promise || !window.URL || !URL.createObjectURL) return;
+      e.preventDefault();
+      if (link.getAttribute('aria-busy') === 'true') return;
+
+      /* keep the control the same width while its label changes */
+      if (link.classList.contains('btn')) link.style.minWidth = link.offsetWidth + 'px';
+      link.setAttribute('aria-busy', 'true');
+      setState('loading', link.classList.contains('btn') ? 'Preparing download…' : idle);
+      announce('Preparing your resume download');
+
+      var file = fetch(link.href, { credentials: 'same-origin' }).then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        return res.blob();
+      });
+      var wait = new Promise(function (done) { setTimeout(done, MIN_SPIN); });
+
+      Promise.all([file, wait])
+        .then(function (result) {
+          saveBlob(result[0], link.getAttribute('download') || 'resume.pdf');
+          setState('done', link.classList.contains('btn') ? 'Downloaded' : idle);
+          announce('Resume downloaded');
+          setTimeout(function () {
+            setState('idle', idle);
+            link.style.minWidth = '';
+          }, 2000);
+        })
+        .catch(function () {
+          setState('idle', idle);
+          link.style.minWidth = '';
+          window.location.href = link.href;
+        })
+        .then(function () {
+          link.removeAttribute('aria-busy');
+        });
+    });
+  });
 
 })();
