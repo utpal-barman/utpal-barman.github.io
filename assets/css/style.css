@@ -78,6 +78,9 @@
   --glass-halo: rgba(0, 0, 0, 0.85);
   --glass-blur: blur(16px) saturate(200%) brightness(1.1);
 
+  /* the award photo viewer's backdrop */
+  --scrim: rgba(0, 0, 0, 0.82);
+
   color-scheme: dark;
 }
 
@@ -256,8 +259,10 @@ strong { color: var(--bone); font-weight: 600; }
 
 .skip:focus { left: 16px; }
 
-/* scroll reveal: main.js adds .is-revealed once, never removes it */
-.reveal {
+/* scroll reveal: main.js adds .is-revealed once, never removes it. The hidden
+   state is gated on .js (set in the head before first paint), so without the
+   script the page reads in full instead of staying blank. */
+.js .reveal {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity var(--t-reveal) var(--ease), transform var(--t-reveal) var(--ease);
@@ -427,6 +432,9 @@ strong { color: var(--bone); font-weight: 600; }
 .nav__link {
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 9px 12px;
   border-radius: 999px;
   font-family: var(--sans);
@@ -442,7 +450,7 @@ strong { color: var(--bone); font-weight: 600; }
 .nav__toggle:active { transform: scale(1.06); }
 
 .nav__link:hover,
-.nav__link[aria-current='true'] { color: var(--bone); }
+.nav__link[aria-current] { color: var(--bone); }
 
 /* The current section sits under a small lens of brighter glass that slides
    from link to link (positioned by main.js). Without the script the link
@@ -478,8 +486,8 @@ strong { color: var(--bone); font-weight: 600; }
 .nav__toggle {
   display: none;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
   color: var(--bone);
   transition: transform var(--t-hover) var(--ease), background var(--t-hover) var(--ease);
@@ -812,6 +820,7 @@ strong { color: var(--bone); font-weight: 600; }
   border: 1px solid var(--rule-hi);
   border-radius: 2px;
   background: var(--ink-1);
+  cursor: zoom-in;
 }
 
 .award__fig img {
@@ -823,6 +832,59 @@ strong { color: var(--bone); font-weight: 600; }
 }
 
 .award__fig:hover img { filter: none; }
+
+/* The full-size photo opens in a dialog over the page instead of a raw file in
+   a new tab. A native <dialog>: Escape, the focus trap and returning focus to
+   the photo all come free. */
+.zoom {
+  width: fit-content;
+  max-width: min(960px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--rule-hi);
+  border-radius: 2px;
+  background: var(--ink-1);
+  color: var(--bone);
+  overflow: hidden;
+}
+
+.zoom::backdrop { background: var(--scrim); }
+
+.zoom__img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 96px);
+  margin-inline: auto;
+  background: var(--black);
+}
+
+.zoom__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--rule);
+}
+
+.zoom__cap {
+  font-family: var(--mono);
+  font-size: var(--fs-mono);
+  letter-spacing: -0.005em;
+  color: var(--bone-dim);
+}
+
+.zoom__close {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--rule-btn);
+  border-radius: 2px;
+  font-size: var(--fs-sm);
+  transition: border-color var(--t-hover) var(--ease);
+}
+
+.zoom__close:hover { border-color: var(--bone-dim); }
 
 .award__n { font-size: var(--fs-base); font-weight: 400; color: var(--bone); }
 
@@ -986,11 +1048,22 @@ strong { color: var(--bone); font-weight: 600; }
   /* one line in the capsule: the name alone */
   .nav__brand span { display: none; }
 
+  /* Without JS the menu can neither open nor close, so the bar keeps only the
+     brand and the page stands on its own. */
+  html:not(.js) .nav__links,
+  html:not(.js) .nav__toggle { display: none; }
+
   /* The open menu is a second pane of the same glass under the capsule. It is
-     always glass, even at the top of the page, so the links stay legible. */
-  .nav__links {
+     always glass, even at the top of the page, so the links stay legible. It
+     scrolls inside itself, so a short or landscape viewport still reaches
+     every row. */
+  .js .nav__links {
     position: fixed;
     inset: 72px 12px auto 12px;
+    max-height: calc(100vh - 84px);
+    max-height: calc(100dvh - 84px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -1015,8 +1088,11 @@ strong { color: var(--bone); font-weight: 600; }
     backdrop-filter: none;
   }
 
+  /* the menu covers the page; the page behind it should not scroll */
+  html.menu-lock body { overflow: hidden; }
+
   .nav__link { padding: 14px 16px; border-radius: 16px; }
-  .nav__link[aria-current='true'] { background: var(--glass-lens); }
+  .nav__link[aria-current] { background: var(--glass-lens); }
   .nav__lens { display: none; }
   .nav__toggle { display: grid; }
 
@@ -1058,7 +1134,8 @@ strong { color: var(--bone); font-weight: 600; }
     scroll-behavior: auto !important;
   }
 
-  .reveal { opacity: 1; transform: none; }
+  .reveal,
+  .js .reveal { opacity: 1; transform: none; }
 }
 
 @media print {
