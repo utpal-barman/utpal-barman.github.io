@@ -129,6 +129,9 @@
   --glass-dye-menu: rgba(8, 8, 10, 0.78);
   --glass-halo: rgba(0, 0, 0, 0.85);
 
+  /* the award photo viewer's backdrop */
+  --scrim: rgba(0, 0, 0, 0.82);
+
   color-scheme: dark;
 }
 
@@ -379,18 +382,20 @@ strong { color: var(--label); font-weight: 600; }
 
 .skip:focus { left: 16px; }
 
-/* scroll reveal: main.js adds .is-revealed once, never removes it */
-.reveal {
+/* scroll reveal: main.js adds .is-revealed once, never removes it. The hidden
+   state is gated on .js (set in the head before first paint), so without the
+   script the page reads in full instead of staying blank. */
+.js .reveal {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity var(--t-reveal) var(--spring-smooth), transform var(--t-reveal) var(--spring-smooth);
 }
 
-.reveal.is-revealed { opacity: 1; transform: none; }
+.js .reveal.is-revealed { opacity: 1; transform: none; }
 
 /* while liquidGL photographs the page, sections still waiting to reveal are
    drawn as they will be read (main.js sets this for the capture only) */
-.glass-snap .reveal { opacity: 1; transform: none; }
+.js.glass-snap .reveal { opacity: 1; transform: none; }
 .glass-snap .reveal,
 .glass-settle .reveal { transition: none; }
 
@@ -551,6 +556,9 @@ strong { color: var(--label); font-weight: 600; }
 .nav__link {
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
   padding: 9px 12px;
   border-radius: var(--shape-full);
   font-family: var(--sans);
@@ -566,7 +574,7 @@ strong { color: var(--label); font-weight: 600; }
 .nav__link:active,
 .nav__toggle:active { transform: scale(1.06); --state: var(--state-press); }
 
-.nav__link[aria-current='true'] { font-weight: 500; }
+.nav__link[aria-current] { font-weight: 500; }
 
 /* The current section sits under a small lens of brighter glass that slides
    from link to link (positioned by main.js). Without the script the link
@@ -963,6 +971,7 @@ strong { color: var(--label); font-weight: 600; }
   overflow: hidden;
   border-radius: var(--shape-lg);
   background: var(--surface-1);
+  cursor: zoom-in;
 }
 
 .award__fig img {
@@ -974,6 +983,72 @@ strong { color: var(--label); font-weight: 600; }
 }
 
 .award__fig:hover img { filter: none; transform: scale(1.03); }
+
+/* The full-size photo opens in a dialog over the page instead of a raw file in
+   a new tab. A native <dialog>: Escape, the focus trap and returning focus to
+   the photo all come free. Shaped like an iOS sheet: a raised surface, 28px
+   corners, the photo concentric inside it. */
+.zoom {
+  width: fit-content;
+  max-width: min(960px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 8px;
+  border: 0;
+  border-radius: var(--shape-xl);
+  background: var(--surface-1);
+  color: var(--label);
+  overflow: hidden;
+}
+
+.zoom[open] { animation: menu-in var(--t-default) var(--spring-spatial); }
+
+.zoom::backdrop { background: var(--scrim); }
+
+.zoom__img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 112px);
+  margin-inline: auto;
+  border-radius: calc(var(--shape-xl) - 8px);
+  background: var(--bg);
+}
+
+.zoom__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 8px 0 12px;
+}
+
+.zoom__cap {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+  font-weight: 600;
+  letter-spacing: var(--ls-caption);
+  color: var(--label-2);
+}
+
+/* the close control is a glass capsule button, same as the page's secondary actions */
+.zoom__close {
+  min-height: var(--tap);
+  padding: 0 20px;
+  border-radius: var(--shape-full);
+  background-color: var(--glass-control);
+  background-image: linear-gradient(var(--state), var(--state));
+  font-size: var(--fs-body);
+  font-weight: 500;
+  letter-spacing: var(--ls-body);
+  transition: --state var(--t-hover) var(--ease), border-radius var(--t-fast) var(--spring-spatial),
+    transform var(--t-fast) var(--spring-spatial);
+}
+
+.zoom__close:active { --state: var(--state-press); border-radius: var(--shape-md); transform: scale(0.97); }
+
+@media (hover: hover) and (pointer: fine) {
+  .zoom__close:hover { --state: var(--state-hover); }
+}
 
 .award__n { font-size: var(--fs-body); font-weight: 600; color: var(--label); }
 
@@ -1153,6 +1228,11 @@ strong { color: var(--label); font-weight: 600; }
 @media (max-width: 860px) {
   .nav[data-scrolled='true'] .nav__inner { padding-inline: 20px 4px; }
 
+  /* Without JS the menu can neither open nor close, so the bar keeps only the
+     brand and the page stands on its own. */
+  html:not(.js) .nav__links,
+  html:not(.js) .nav__toggle { display: none; }
+
   /* one line in the capsule: the name alone */
   .nav__brand span { display: none; }
 
@@ -1163,6 +1243,11 @@ strong { color: var(--label); font-weight: 600; }
     --glass-tint: var(--glass-tint-menu);
     position: fixed;
     inset: 72px 12px auto 12px;
+    /* it scrolls inside itself, so a short or landscape viewport still reaches every row */
+    max-height: calc(100vh - 84px);
+    max-height: calc(100dvh - 84px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -1176,6 +1261,9 @@ strong { color: var(--label); font-weight: 600; }
   }
 
   .nav__links[hidden] { display: none; }
+
+  /* the menu covers the page; the page behind it should not scroll */
+  html.menu-lock body { overflow: hidden; }
   .nav__links::before { opacity: 1; }
 
   /* with liquidGL live, the menu's lens draws the glass; keep only the rim */
@@ -1198,7 +1286,7 @@ strong { color: var(--label); font-weight: 600; }
     letter-spacing: var(--ls-body);
   }
 
-  .nav__link[aria-current='true'] { background-color: var(--glass-lens); }
+  .nav__link[aria-current] { background-color: var(--glass-lens); }
   .nav__lens { display: none; }
   .nav__toggle { display: grid; }
 
@@ -1249,7 +1337,8 @@ strong { color: var(--label); font-weight: 600; }
   }
 
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; }
+  .reveal,
+  .js .reveal { opacity: 1; transform: none; }
 
   /* the spinner still has to say "working" without turning: it pulses instead */
   [data-state='loading'] .spinner {
@@ -1295,7 +1384,8 @@ strong { color: var(--label); font-weight: 600; }
 
 @media print {
   body { background: var(--on-tint); color: var(--bg); }
-  .nav, .socials, .hero__actions { display: none; }
-  .reveal { opacity: 1; transform: none; }
+  .nav, .socials, .hero__actions, .zoom { display: none; }
+  .reveal,
+  .js .reveal { opacity: 1; transform: none; }
   .cell, .feature, .contact__cell { background: none; border: 1px solid var(--separator-strong); }
 }

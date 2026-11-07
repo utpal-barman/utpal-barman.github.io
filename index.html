@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- tell the stylesheets JS is on before first paint: the reveal and the
+         nav brand stay visible without it, never half-hidden -->
+    <script>document.documentElement.classList.add('js');</script>
 
-    <title>Utpal Barman — Principal Software Engineer, Mobile (iOS &amp; Android) · Agentic AI</title>
-    <meta name="description" content="Utpal Barman is a principal software engineer in Dhaka with nearly 8 years building native and cross-platform apps for iOS and Android (Flutter, React Native, Kotlin), who runs his engineering work on agentic AI." />
+    <title>Utpal Barman — Principal Software Engineer · Agentic AI</title>
+    <meta name="description" content="Utpal Barman is a principal software engineer in Dhaka with nearly 8 years building iOS and Android apps, who runs his engineering work on AI agents." />
     <meta name="author" content="Utpal Barman" />
     <meta
       name="keywords"
@@ -23,12 +26,12 @@
 
     <meta property="og:type" content="profile" />
     <meta property="og:url" content="https://utpals.com/" />
-    <meta property="og:title" content="Utpal Barman — Principal Software Engineer, Mobile (iOS & Android) · Agentic AI" />
+    <meta property="og:title" content="Utpal Barman — Principal Software Engineer · Agentic AI" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Utpal Barman" />
     <meta property="profile:first_name" content="Utpal" />
     <meta property="profile:last_name" content="Barman" />
-    <meta property="og:description" content="Principal software engineer at Brain Station 23, Dhaka. Nearly 8 years of native and cross-platform iOS and Android apps, leading a mobile team and automating engineering work with AI agents." />
+    <meta property="og:description" content="Principal software engineer in Dhaka with nearly 8 years building iOS and Android apps, who runs his engineering work on AI agents." />
     <meta
       property="og:image"
       content="https://utpals.com/assets/img/utpal-barman-meta-image.png?v=2"
@@ -41,8 +44,8 @@
       content="Utpal Barman — Principal software engineer at Brain Station 23, Dhaka. iOS, Android and agentic AI."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Utpal Barman — Principal Software Engineer, Mobile (iOS & Android) · Agentic AI" />
-    <meta name="twitter:description" content="Principal software engineer at Brain Station 23, Dhaka. Nearly 8 years of native and cross-platform iOS and Android apps, leading a mobile team and automating engineering work with AI agents." />
+    <meta name="twitter:title" content="Utpal Barman — Principal Software Engineer · Agentic AI" />
+    <meta name="twitter:description" content="Principal software engineer in Dhaka with nearly 8 years building iOS and Android apps, who runs his engineering work on AI agents." />
     <meta
       name="twitter:image"
       content="https://utpals.com/assets/img/utpal-barman-meta-image.png?v=2"
@@ -56,7 +59,7 @@
 
     <!-- bump ?v= on every edit: .htaccess caches css/js immutable for a year, so
          returning visitors keep the old file until this number changes -->
-    <link rel="stylesheet" href="./assets/css/style.css?v=37" />
+    <link rel="stylesheet" href="./assets/css/style.css?v=38" />
   </head>
 
   <body>
@@ -628,6 +631,15 @@
       </section>
     </main>
 
+    <!-- award photos open here, over the page, instead of a raw file in a new tab -->
+    <dialog class="zoom" id="zoom" aria-label="Award photo">
+      <img class="zoom__img" alt="" />
+      <div class="zoom__bar">
+        <p class="zoom__cap"></p>
+        <button class="zoom__close" type="button">Close</button>
+      </div>
+    </dialog>
+
     <footer class="footer">
       <div class="container footer__inner">
         <span>© <span id="year">2026</span> Utpal Barman</span>
@@ -644,7 +656,7 @@
             "@type": "ProfilePage",
             "@id": "https://utpals.com/#profilepage",
             "url": "https://utpals.com/",
-            "name": "Utpal Barman — Principal Software Engineer, Mobile (iOS & Android) · Agentic AI",
+            "name": "Utpal Barman — Principal Software Engineer · Agentic AI",
             "inLanguage": "en",
             "dateModified": "2026-11-07",
             "mainEntity": {
@@ -805,6 +817,6 @@
 
     <p class="sr-only" id="liveStatus" role="status" aria-live="polite"></p>
 
-    <script src="./assets/js/main.js?v=33" defer></script>
+    <script src="./assets/js/main.js?v=34" defer></script>
   </body>
 </html>
