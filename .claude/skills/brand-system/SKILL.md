@@ -344,7 +344,9 @@ for dates and project names, and LinkedIn for awards.
   Oct 2026 as the overlap month). Leads a 7-engineer mobile team in the
   Europe SBU; European and Japanese clients; hiring, onboarding, mentoring; recruitment
   board member; (the number of concurrent projects is internal and never on the page);
-  supports pre-sales (proposals, solution design). The title everywhere outside the
+  supports pre-sales (proposals, solution design). **As Principal the focus is AIDLC with
+  agentic workflows and Norway-based clients** (Utpal, 7 Nov 2026): never present Japan as a
+  current client; Japanese-market work (WellWa) belongs to the Lead period. The title everywhere outside the
   Experience row (hero, nav, meta, JSON-LD, share image) is "Principal Software Engineer".
   The resume (repo and site PDF) was updated to Principal on 7 Nov 2026.
 - Monstarlab Bangladesh — Senior Mobile Engineer I (Aug 2023 → Nov 2024),
