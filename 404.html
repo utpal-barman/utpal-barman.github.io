@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Page not found — Utpal Barman</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#000000" />
+
+    <link rel="icon" href="/assets/favicon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+
+    <!-- same cache key as the page: bump it with index.html -->
+    <link rel="stylesheet" href="/assets/css/style.css?v=33" />
+    <style>
+      .lost {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100vh;
+        padding-block: var(--section-y);
+      }
+
+      .lost__k { color: var(--cobalt); }
+
+      .lost__t { font-size: var(--fs-xl); margin: 8px 0 12px; }
+
+      .lost__d { font-size: var(--fs-md); max-width: 52ch; }
+
+      .lost__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+
+      .lost__foot { margin-top: 48px; color: var(--slate); }
+    </style>
+  </head>
+
+  <body>
+    <main class="container lost" id="main">
+      <p class="mono lost__k">404</p>
+      <h1 class="display lost__t">Page not found</h1>
+      <p class="lost__d">
+        That address does not exist on this site. The work history, the resume and the tools are one
+        click away.
+      </p>
+
+      <div class="lost__actions">
+        <a class="btn btn--primary" href="/">Back to utpals.com</a>
+        <a class="btn btn--ghost" href="/assets/doc/utpal-barman-resume.pdf"
+          >Resume (PDF) <span class="btn__arrow" aria-hidden="true">↗</span></a
+        >
+        <a class="btn btn--ghost" href="/tools/">Tools</a>
+      </div>
+
+      <p class="mono lost__foot">Utpal Barman · Lead Software Engineer, Dhaka</p>
+    </main>
+  </body>
+</html>
