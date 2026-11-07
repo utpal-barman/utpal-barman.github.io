@@ -4,12 +4,12 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://utpals.com/</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://utpals.com/assets/img/utpal-barman-meta-image.png</image:loc>
-      <image:title>Utpal Barman — Lead Software Engineer, Flutter, Android and Agentic AI</image:title>
+      <image:title>Utpal Barman — Principal Software Engineer, Flutter, Android and Agentic AI</image:title>
     </image:image>
     <image:image>
       <image:loc>https://utpals.com/assets/img/flutter-guild-day-2026.webp</image:loc>

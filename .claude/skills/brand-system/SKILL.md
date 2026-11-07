@@ -5,7 +5,7 @@ description: The design system for utpals.com / utpal-barman.github.io — Utpal
 
 # Brand system — "trace"
 
-Portfolio of **Utpal Barman**, Lead Software Engineer at Brain Station 23. The page has
+Portfolio of **Utpal Barman**, Principal Software Engineer at Brain Station 23. The page has
 exactly one job: convince a recruiter or hiring manager, in under 60 seconds, that this
 person is a mobile engineering lead who works with agentic AI — and get them to open the
 resume or send an email.
@@ -29,73 +29,93 @@ decoration, but because it is the artifact this audience reads every day.
 
 ## 2. Tokens
 
-Declared once in `assets/css/style.css` under `:root`. Never hardcode a hex
-value anywhere else — no exceptions, including inline styles.
+**One design system, iOS first** (Utpal, Nov 2026: "mostly iOS respected and modern
+trendy", respecting both iOS Liquid Glass and Material 3 Expressive). Apple decides what
+things look like: colours, SF type, Liquid Glass, 44px touch targets, Reduce Transparency
+and Increase Contrast. Material 3 Expressive supplies the structure iOS does not spell out
+for the web: role-named tokens, a shape scale, state layers, the shape morph on press and
+spring motion tokens. When the two disagree, iOS wins.
 
-Chosen for how a recruiter reads the page (Oct 2026): Apple's dark-mode neutrals and
-blues, because blue reads as trust and competence and these exact values are the ones
-a reader already associates with polished product work.
+Declared once in `assets/css/style.css` under `:root`. Never hardcode a colour anywhere
+else, inline styles included. Tokens are **roles**, named after iOS's semantic colours:
 
 ```
---black        #000000   page ground. Pure black.
---ink-1        #08080A   raised surface (cards, rows)
---ink-2        #101013   hover / elevated
---rule         #1E1E22   hairlines — 1px, the ONLY divider style
---rule-hi      #2E2E34   hairline on hover/focus
+--bg               #000000   page (systemBackground)
+--surface-1        #1C1C1E   tiles: Expertise, Projects, Contact (secondarySystemBackground)
+--surface-2        #2C2C2E   raised bits: core tags (tertiarySystemBackground)
+--separator        #38383A   hairlines (opaqueSeparator) — 1px, the only divider
+--separator-strong #48484A   stronger hairline
+--outline          #636366   control outlines (3.5:1 on bg, WCAG 1.4.11)
 
---bone         #F5F5F7   primary text (Apple's off-white, 19.3:1)
---bone-dim     #A1A1A6   body copy (8.2:1 — bright enough to read without effort)
---slate        #86868B   meta, captions (5.8:1 — do not darken)
+--label            #F5F5F7   primary text   19.3 / 15.6 / 12.8 on bg / surface-1 / surface-2
+--label-2          #A1A1A6   secondary       8.2 /  6.6 /  5.4
+--label-3          #86868B   tertiary        5.8 /  4.7 — never on surface-2 (3.85)
 
---cobalt       #2997FF   accent text and focus on black (Apple link blue, 7.0:1)
---cobalt-deep  #0071E3   filled CTA under white text (4.7:1)
---cobalt-press #0066CC   CTA hover: darker, never lighter (5.6:1)
---white        #FFFFFF   only on filled cobalt buttons, text selection and print
---rule-btn     #3A3A42   ghost button border
+--tint             #2997FF   links, focus     7.0 /  5.6 /  4.6
+--tint-fill        #0071E3   filled button under --on-tint (4.7:1)
+--tint-fill-press  #0066CC   its hover and press: darker, never lighter (5.6:1)
+--on-tint          #FFFFFF   only on tint fills, selection and print
+
+--state-hover      label @ 8%    Material state layers, washed over controls
+--state-press      label @ 12%
 ```
 
-**Accent discipline.** Cobalt marks exactly three things: the primary CTA, focus rings, and the agentic AI
-highlight on the current role (its lead-note dash). The `Agentic AI` chip that sat under the role was removed in Oct 2026 (Utpal: a single chip looked odd); do not bring it back. Jade and amber were removed with the waterfall; do not bring them back. If an accent is being
-used to "add interest," delete it.
+**Colour means "you can press this"** (HIG). The tint marks links, the primary button
+and focus, plus one exception: the agentic AI lead-note dot on the current role.
+Eyebrows and kickers are `--label-2`. The `Agentic AI` chip under the role, jade, amber and
+the waterfall stay gone.
 
-**Liquid glass** (`--glass*` tokens) belongs to the nav only. Once the page scrolls the
-bar becomes a floating capsule: a nearly clear pane (`blur(16px) saturate(200%)
-brightness(1.1)`), a 1px gradient specular rim brightest at the top left, an inset glow,
-and a soft highlight that follows the pointer. The current section sits under a lens of
-brighter glass that slides between links (main.js), replacing the old cobalt underline;
-links swell to 1.06 on press. The open mobile menu is a second, near-opaque pane of the
-same glass. These gradients and inset shadows are light effects on glass, not brand
-colour or elevation, and appear nowhere else.
+**State layers only on controls** (both systems): buttons, nav links, the menu toggle. Tiles,
+tags and rows are content and never react to hover. A tile hover would also push `--label-3`
+under 4.5:1. The primary button darkens instead of taking a light wash, which would drop
+white text to 4.2:1. Hovers sit inside `@media (hover: hover) and (pointer: fine)` so touch
+never sticks. The state layer is the registered `--state` property, painted as a
+`background-image` gradient, so it animates.
 
-Real refraction comes from **liquidGL** (naughtyduk/liquidGL v3, MIT, vendored at
-`assets/js/vendor/liquidGL.js` with its licence), added at Utpal's request in Oct 2026. It
-draws the capsule as WebGPU/WebGL glass: the page refracts through a bevelled rim with a
-slight colour split, a moving specular sheen and a viscous ripple under the pointer.
-main.js inserts an empty `.nav__glass` pane as its target (`content: false`), so the links
-stay ordinary DOM. The library's canvas sits inside `.nav` and is hidden until the bar has
-become the capsule. Once it is live, `.liquid` on `<html>` drops the capsule's CSS pane and
-keeps only the rim. The glass is clear, not frosted (`frost: 0`; any blur reads as grain): Utpal asked for
-"more glassy". A light dye (`--glass-dye`, multiplied into the refracted page) and a dark
-halo on the labels (`--glass-halo`, text-shadow, live glass only) keep nav text legible
-over the large headings beneath. Tuned by eye over the Expertise h2. The library works from a
-still snapshot of the page, so main.js forces `.reveal` blocks visible while it captures
-(`.glass-snap`, reset instantly via `.glass-settle`) and recaptures once lazy images
-load. It loads only after the page is idle and only where WebGPU or WebGL exists (not under
-Save-Data). Without it, the frosted CSS glass stays. Under reduced motion, specular and
-pointer ripple are off. The old hand-built SVG displacement filter is gone. The lens moves like liquid, never a spring: its leading edge flows to the new link first,
-the trailing edge follows, and it thins while stretched (`lens-flow`). No overshoot, no
-wobble (Utpal rejected the spring version). Skipped under reduced motion. Keep the tint (`--glass-liquid`) dense enough that the nav text stays
-legible over the large headings that pass beneath it.
+**Liquid glass** is **liquidGL** (naughtyduk/liquidGL v3, MIT, vendored at
+`assets/js/vendor/liquidGL.js` with its licence): real refraction drawn in WebGPU/WebGL.
+The page bends through a bevelled rim with a slight colour split, a moving specular sheen
+and a viscous ripple under the pointer. The glass is **clear, never frosted** (`frost: 0`).
+glisse (SVG-filter glass) was tried in Nov 2026 and removed the same day. Utpal: "glass
+is blurry, not like apple's original liquid glass refraction style". Do not bring back
+glisse or any blur-based glass.
 
-**Contrast is a hard gate.** Every text node must clear 4.5:1 against its effective
-background (3:1 for >=24px, or >=18.66px bold). `--slate` and `--cobalt-deep` sit near
-the edge of passing — darkening either breaks the page. `--cobalt` under white text is
-only 3.84:1, which is why filled buttons use `--cobalt-deep`. Re-audit after any colour
-change.
+Glass is for **floating controls only**, as on iOS 26:
+- the nav: main.js inserts an empty `.nav__glass` pane as liquidGL's target
+  (`content: false`), so the links stay ordinary DOM. The library's canvas sits inside
+  `.nav` and shows only once the bar has become the capsule. Once it is live, `.liquid` on
+  `<html>` drops the CSS pane and keeps only the 1px gradient rim. A light dye
+  (`--glass-dye`, multiplied into the refracted page) and a dark halo on the labels
+  (`--glass-halo`, live glass only) keep nav text legible over large headings.
+- the open mobile menu: a second lens (`.nav__menu-glass`, fitted over the menu by
+  main.js) with a denser dye (`--glass-dye-menu`).
+- secondary buttons (`.btn--glass`: Email me, LinkedIn, project links): iOS's `.glass`
+  button style in CSS, a clear `--glass-control` fill with the same lit rim. No blur.
+- the **scroll edge** (`.nav::before`): content dims, without blurring, as it slides under
+  the bar.
+
+liquidGL works from a still snapshot of the page, so main.js forces `.reveal` blocks
+visible while it captures (`.glass-snap`, reset instantly via `.glass-settle`) and
+recaptures once lazy images load. It loads after `load`, when the browser is idle, and
+only where WebGPU or WebGL exists, not under Save-Data or Reduce Transparency. Without it,
+the CSS stand-in shows: tint, frost and rim. Under reduced motion the specular sheen and
+pointer ripple are off. All nav labels are `--label`. The current section sits under a
+lens (`--glass-lens`) that slides between links. It moves like liquid, never a spring: the
+leading edge first, the trailing edge after, thinning while stretched (`lens-flow`).
+Utpal rejected the spring version.
+
+**Accessibility preferences are part of the system:** `prefers-reduced-transparency`
+turns all glass solid (`--surface-1`) and main.js skips liquidGL. `prefers-contrast: more`
+raises `--label-2`/`--label-3`, separators and glass opacity. `prefers-reduced-motion`
+zeroes durations, and the download spinner holds still and dims instead of turning.
+
+**Contrast is a hard gate.** Every text node clears 4.5:1 on its effective background
+(3:1 for >=24px, or >=18.66px bold). The table above is the audit; re-run it after any
+colour change.
 
 **Banned:** acid green (`#43ffa4`, `#00ff88` and family), vermilion, gradients
-as brand color, pure `#FFFFFF` text, `box-shadow` for elevation. Elevation is
-expressed with `--ink-1`/`--ink-2` and hairlines only.
+as brand color, pure `#FFFFFF` text, `box-shadow` for elevation. Elevation is the
+`--surface-*` steps; light effects on glass are not elevation.
 
 ## 3. Type
 
@@ -103,15 +123,22 @@ expressed with `--ink-1`/`--ink-2` and hairlines only.
 It is the face each reader's eyes are tuned to, needs no download, and SF Pro cannot be
 self-hosted (Apple's licence). The old Archivo / IBM Plex files are no longer loaded.
 
-| Role | Face | Usage |
-|---|---|---|
-| Display | system (SF Pro Display) 700 | h1, h2. Tracking `-0.03em` / `-0.025em`, line-height `1.04` / `1.08`. |
-| Body | system (SF Pro Text) 400/500/600 | everything readable: prose, nav, tags, labels, buttons. Tracking `-0.011em`. |
-| Utility | `ui-monospace` (SF Mono) | only where even digits help: dates, durations, metrics, proof lines. |
+Hierarchy follows Apple's web text styles (Nov 2026): one size, line height and tracking
+per role, tokenised as `--fs-*`, `--lh-*`, `--ls-*`. Headlines are **600 (semibold)**,
+never 700. SF tracks tighter as it shrinks to body size and opens slightly from 21px up;
+use the role's `--ls-*`, never an ad-hoc value.
 
-Scale (`--fs-*`, Apple reading sizes): `mono` .8125 (13px) · `sm` .9375 (15px) · `base`
-1.0625 (17px, Apple's body size) · `md` 1.1875 (19px) · `xl` clamp(2,3.6vw,3) ·
-`display` clamp(2.75rem,6vw,4.5rem). Nothing readable goes below 13px.
+| Role | Size | LH | Tracking | Weight | Used for |
+|---|---|---|---|---|---|
+| hero | clamp(48,7vw,80) | 1.05 | -0.015em | 600 | h1 |
+| headline | clamp(32,4.2vw,48) | 1.08 | -0.003em | 600 | h2, contact title |
+| title | 24 | 1.17 | 0.009em | 600 | h3 on tiles and projects |
+| intro | 21 | 1.38 | 0.011em | 400/600 | hero lede and role line, contact lede, company names |
+| body | 17 | 1.47 | -0.022em | 400/500/600 | prose, notes, eyebrows (600), list names (600), buttons |
+| caption | 14 | 1.43 | -0.016em | 400/600 | nav, tags, kickers, proof lines, footer |
+| footnote | 13, `ui-monospace` | 1.38 | 0 | 400 | dates, durations, metrics only |
+
+Nothing readable goes below 13px. Mono (SF Mono) is only for digits that should align.
 
 **Capitalisation.** Normal sentence/title capitalisation everywhere, including mono
 labels, nav items, section eyebrows, tags and dates — `Agentic AI`, `MCP`, `CI/CD`,
@@ -121,25 +148,53 @@ lowercase in the world: package names (`u_credit_card`, `trace_logger`), filenam
 
 ## 4. Space & shape
 
-8px base. Allowed steps only: `4 8 12 16 24 32 48 64 96 128`.
+4px grid. Allowed steps: `4 8 12 16 24 32 48 64 96 128`.
 Section rhythm: `clamp(72px, 11vw, 128px)` vertical padding, hairline between.
 Container: `max-width 1140px`, gutter `clamp(20px, 5vw, 40px)`.
-Radius: `2px` default, `999px` for tags, pills and the glass nav capsule, `24px` for the
-open mobile menu pane and `16px` for its rows only. Nothing else.
-Borders: `1px solid var(--rule)`. Never 2px, never dashed.
+
+**Shape scale** (Material 3 Expressive), used **concentrically** (iOS 26): a shape inside
+a padded container takes the container's corner minus the padding.
+
+```
+--shape-xs 4    text links' focus ring, role-line logo link
+--shape-sm 8    contact email focus
+--shape-md 12   company logos; a button's corner while pressed
+--shape-lg 16   photos
+--shape-xl 28   tiles (Expertise, Projects, Contact), the mobile menu (rows: 28 − 8 = 20)
+--shape-full    buttons, tags, nav capsule, lens, toggle; the avatar is a circle
+```
+
+Lists (Experience, Skills, Awards, Education) stay flat rows on hairlines, like grouped
+settings lists. A company with several roles joins them with a separator down the left.
+Touch targets: **44px minimum** (`--tap`): buttons, icon button, toggle, logos, social
+links; mobile menu rows are 48px. Borders: `1px solid var(--separator)`. Never 2px, never
+dashed.
 
 ## 5. Motion
 
-- Page load: hero staggers in 4 steps, 60ms apart, `translateY(14px)` → 0.
-- Scroll: `IntersectionObserver`, reveal once, never re-hide.
-- Nav: the name in the bar fades in only once the hero h1 has scrolled out of view
-  (`data-brand` on `.nav`, gated on `.js` so it shows without the script), and the bar
-  morphs into the glass capsule once the page scrolls.
-- Photos and the employer logo are monochrome at rest and take their own colour on hover,
-  the same treatment as the avatar.
-- Easing: `cubic-bezier(.22,.61,.36,1)`. Durations 180ms (hover) / 420ms (reveal).
-- `@media (prefers-reduced-motion: reduce)` must zero every duration. Verify this on
-  every change.
+Two springs, written as CSS `linear()` curves computed from real spring physics:
+- `--spring-spatial`: Material 3 Expressive's spatial spring (damping 0.9, a 0.2% settle
+  past the target). Used for anything that moves or changes shape: press scale, the shape
+  morph, logos, menu open, the toggle's bars. `--t-fast` 220ms, `--t-default` 320ms.
+- `--spring-smooth`: iOS's `.smooth` (critically damped, no bounce), for reveals and the
+  nav's lift into the capsule. `--t-reveal` 500ms.
+- Effects (colour, opacity, state layers) use `--ease` at `--t-hover` 180ms and never bounce.
+
+- **Press**: buttons settle to 0.97 and morph from capsule to a `--shape-md` rounded square
+  (Material 3 Expressive). Nav links and the toggle swell to 1.06 (iOS glass controls).
+- Page load: the hero staggers in 4 steps, 70ms apart, `translateY(14px)` → 0.
+- Scroll: `IntersectionObserver`, reveal once, never re-hide. Anchors land below the nav
+  (`scroll-padding-top`), and scrolling is smooth unless reduced motion is on.
+- Nav: the name in the bar fades in only once the hero h1 has left view (`data-brand`,
+  gated on `.js`); the bar lifts into the glass capsule once the page scrolls; the lens rule is in 2.
+- Photos and the employer logo are monochrome at rest and take their own colour on hover.
+- **Resume download** (Utpal, Nov 2026): every `[data-download]` link saves the PDF to the
+  browser's downloads (`download="Utpal-Barman-Resume.pdf"`), never a new tab. On click
+  the button shows a spinner and "Preparing download…" for **at least 1500ms**
+  while the file is fetched, then "Downloaded" for 2s. Its width is held steady, `aria-busy`
+  is set, and `#liveStatus` announces each step. Modified clicks and fetch failures fall
+  back to the plain link.
+- `@media (prefers-reduced-motion: reduce)` zeroes every duration. Verify on every change.
 
 ## 6. Voice
 
@@ -162,7 +217,7 @@ the brand, and the claim belongs in prose rather than in 4rem type. Do not put a
 slogan back in the h1.
 
 The hero is exactly five things: avatar, name, a role line, one paragraph, three
-actions. The role line is "Lead Software Engineer at" followed by the Brain Station 23
+actions. The role line is "Principal Software Engineer at" followed by the Brain Station 23
 logo (`assets/img/brain-station-23-logo.webp`, a horizontal lockup on transparent,
 linked to the company), added at Utpal's request. The paragraph then starts with "I lead".
 Nothing else belongs there. The paragraph carries the whole argument and is the
@@ -238,8 +293,8 @@ may add a third, lead note: its agentic AI work, highlighted at Utpal's request)
 
 ## 7. Constraints
 
-- **One runtime dependency: liquidGL**, for the nav glass only (see 2), vendored and
-  loaded on idle. No Bootstrap, jQuery, Slick, Lightbox, FontAwesome, Ionicons. Vanilla
+- **One runtime dependency: liquidGL**, for the nav and menu glass only (see 2), vendored
+  and loaded on idle. No Bootstrap, jQuery, Slick, Lightbox, FontAwesome, Ionicons. Vanilla
   JS, hand-written CSS. Anything else that seems to need a library is the wrong feature.
 - Single stylesheet `assets/css/style.css`, single script `assets/js/main.js`. Both are
   numbered by section in page order (tokens, reset, primitives, nav, hero, each section,
@@ -269,12 +324,17 @@ for dates and project names, and LinkedIn for awards.
   industry ("a UAE bank", "clients in Norway and Japan"). The names above are background
   only. Employers (Brain Station 23, Monstarlab, HeavyTask) are named; clients are not.
 
-- Brain Station 23 PLC — Lead Engineer I — Dec 2024 → present. Leads a
-  7-engineer mobile team in the Europe SBU; European and Japanese clients;
-  hiring, onboarding, mentoring; recruitment board member; (number of concurrent
-  projects is internal, never on the page); supports pre-sales
-  (proposals, solution design). His LinkedIn About calls him "Lead Software Engineer";
-  the site uses that wording outside the Experience row.
+- Brain Station 23 PLC — **Principal Software Engineer, Oct 2026 → present** (promotion,
+  read from his LinkedIn experience on 7 Nov 2026; LinkedIn skills on the role: Agentic AI
+  Development, Organizational Leadership). Before that, Lead Engineer I (LinkedIn: "Lead
+  Software Engineer"), Dec 2024 → Sep 2026, 1y 10m (Utpal's correction; LinkedIn shows
+  Oct 2026 as the overlap month). Leads a 7-engineer mobile team in the
+  Europe SBU; European and Japanese clients; hiring, onboarding, mentoring; recruitment
+  board member; (the number of concurrent projects is internal and never on the page);
+  supports pre-sales (proposals, solution design). The title everywhere outside the
+  Experience row (hero, nav, meta, JSON-LD, share image) is "Principal Software Engineer".
+  The resume repo still said Lead Software Engineer on 7 Nov 2026; refresh the PDF once it
+  is updated.
 - Monstarlab Bangladesh — Senior Mobile Engineer I (Aug 2023 → Nov 2024),
   Mobile Engineer II (Aug 2021 → Jul 2023). Social platform (NL), streaming
   broadcast client (AE), mobile app for a UAE bank.
@@ -345,7 +405,7 @@ dependencies.
 
 - **No image over 60 KB**, and no animated GIF at all — one was removed for being
   380 KB with a white first frame. Projects are described in words, not code.
-- One CSS file, one JS file (about 27 KB and 13 KB, uncompressed), plus the vendored
+- One CSS file, one JS file (about 36 KB and 16 KB, uncompressed), plus the vendored
   liquidGL (290 KB raw, about 62 KB gzipped). It is fetched after `load` when the browser
   is idle, so it never blocks first paint. Bump its `?v=` (in main.js) when upgrading it. Bump the `?v=` query on
   both in `index.html` on every edit: `.htaccess` caches them immutable for a year. System fonts only: no

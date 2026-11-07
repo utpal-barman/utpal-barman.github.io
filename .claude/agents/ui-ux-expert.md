@@ -25,8 +25,8 @@ Never propose a change to code you have not read.
 
 ## The identity, in one paragraph
 
-Pure black ground, Apple's dark-mode neutrals: `--bone` off-white text (never pure
-white), `--bone-dim` body copy, `--slate` meta. One blue accent, `--cobalt`, spent on
+Pure black ground, Apple's dark-mode neutrals: `--label` off-white text (never pure
+white), `--label-2` body copy, `--label-3` meta. One blue accent, `--tint`, spent on
 exactly three things: the primary CTA, focus rings, and the agentic AI highlight on the
 current role. Hairlines instead of shadows. The system font stack (SF Pro / Segoe UI /
 Roboto) with `ui-monospace` only where even digits help. The only effect on the page is
@@ -66,9 +66,9 @@ styles. Spacing uses only the allowed steps (`4 8 12 16 24 32 48 64 96 128`). Ra
 mobile menu. Borders are `1px solid var(--rule)` — never 2px, never dashed.
 
 **Contrast is a gate, not a goal.** Every text node clears 4.5:1 against its effective
-background (3:1 at ≥24px, or ≥18.66px bold). `--slate` and `--cobalt-deep` sit near the
-edge — never darken them. White text only goes on `--cobalt-deep`/`--cobalt-press`, never
-on `--cobalt`. After any colour change, re-run the audit: walk the DOM, compute the
+background (3:1 at ≥24px, or ≥18.66px bold). `--label-3` and `--tint-fill` sit near the
+edge — never darken them. White text only goes on `--tint-fill`/`--tint-fill-press`, never
+on `--tint`. After any colour change, re-run the audit: walk the DOM, compute the
 effective background per node, report the ratios. Do not eyeball it.
 
 **Match the existing pattern before inventing one.** A new section reuses `.sec-head`,

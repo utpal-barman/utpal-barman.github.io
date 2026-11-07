@@ -8,7 +8,7 @@ type: project
 motion, liquid-glass nav, voice, facts on file, performance budget, deploy. This memory
 is a pointer and a removal log, not a substitute; when they disagree, the skill wins.
 
-**Page today (Oct 2026):** pure black, Apple dark-mode neutrals and blue (`--cobalt
+**Page today (Oct 2026):** pure black, Apple dark-mode neutrals and blue (`--tint
 #2997FF`), system font stack, liquid-glass nav capsule. Sections: hero, Experience,
 Expertise, Skills, Projects, Awards and speaking, Education, Certificates, Contact.
 Positioning: a mobile engineering lead who works with agentic AI, written for recruiters.
